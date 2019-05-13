@@ -5,12 +5,21 @@
         -final修饰的局部变量一旦被赋值, 不可再改变
         -final修饰的成员变量必须显示地初始化
         -final修饰的成员变量一般和static联用
+        
+        -final修饰的引用类型, 该引用不可再指向其他的Java对象
+         但是final修饰的引用, 该引用指向的对象的属性是可以修改的
 */
 public class FinalTest
 {
     public static void main(String[] args)
     {
+        final Customer c = new Customer("Alpha", 20);
+        //c = new Customer("Bravo", 25); //报错: c被final修饰, 无法重新赋值
         
+        c.name = "Bravo";
+        c.age = 25;
+        
+        System.out.println(c.name + " " + c.age);
     }
 }
 
@@ -68,4 +77,16 @@ class MyMath
     //常量(static和final一起修饰的量)
     //java规范要求, 所有常量大写
     public static final double PI = 3.14;
+}
+
+class Customer
+{
+    String name;
+    int age;
+    
+    Customer(String name, int age)
+    {
+        this.name = name;
+        this.age = age;
+    }
 }
