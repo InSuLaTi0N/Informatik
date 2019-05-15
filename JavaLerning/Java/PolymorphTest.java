@@ -110,7 +110,9 @@ class Animal
 
 /*
     关于多态:
-        -使用多态可使代码耦合度降低
-        -项目的扩展能力增强
-        -
+        -使用多态可使代码耦合度降低 方便替换(substitutability)
+        -项目的扩展能力增强(extensibility)
+        -由父类提供方法, 子类完成或实现(interface-ability)
+        -操作灵活多样, 提高使用效率(flexibility)
+        -在实际开发中简化了代码编写和修改过程(simplicity)
 */
