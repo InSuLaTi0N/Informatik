@@ -12,6 +12,32 @@
         
         -尽量不要频繁使用字符串拼接操作, 字符串一旦创建不可再改变
          频繁拼接会在字符串常量池中创建大量字符串对象, 给垃圾回收带来问题
+         
+        -关于正则表达式:
+            -是一种字符模型, 用来做字符串格式匹配
+            -正则表达式是通用的
+            -例如:
+                正则表达式 "^a{2}$" 表示 2个a字符 等同于 "aa"
+                \d 数字
+                \D 非数字
+                \w 英文字母
+                \W 非英文字母
+                
+        -关于StringBuffer和StringBuilder
+            -是一个字符串缓冲区
+            
+            -java.lang.StringBuffer
+                -线程安全 (可以在多线程环境下使用, 不会出现问题)
+            -java.lang.StringBuilder
+                -非线程安全 (在多线程环境下使用可能出现问题)
+            
+            -预先在内存中申请一块空间, 以容纳字符序列, 若预留空间不够用, 则进行自动扩容, 以容纳更多的字符序列
+            
+            -String是不可变的字符序列, 存储在常量池中; StringBuffer底层是一个char数组, 且该char数组可变可自动扩容
+            -其默认初始化容量为16
+            
+            -为了减少底层数组的拷贝, 提高效率, 最好在创建StringBuffer之前, 预测其存储的字符数量
+            然后再创建StringBuffer的时候采用指定初始化容量的方式创建StringBuffer
 */
 
 public class StringTest
@@ -87,7 +113,7 @@ public class StringTest
     }
     */
     
-    
+    /*
     //常用方法
     
     public static void main(String[] args)
@@ -160,5 +186,88 @@ public class StringTest
         {
             System.out.println(ymd[i]);
         }
+        
+        //boolean	startsWith(String prefix)
+        System.out.println("https://www.bilibili.com/video/av11477533/?p=126".startsWith("h"));
+        
+        //String	substring(int beginIndex, int endIndex)
+        System.out.println("https://www.bilibili.com/video/av11477533/?p=126".substring(8, 24));
+        
+        //char[]	toCharArray()
+        char[] c3 = "Hello".toCharArray();
+        for(int i = 0; i < c3.length; i++)
+        {
+            System.out.print(c3[i] + " ");
+        }
+        
+        System.out.println();
+        
+        //String	toUpperCase()
+        System.out.println("HelloWorld".toUpperCase());
+        
+        //String	toLowerCase()
+        System.out.println("HelloWorld".toLowerCase());
+        
+        //String	trim()
+        System.out.println("    a b c d    ");
+        System.out.println("    a b c d    ".trim());
+        
+        //static String	valueOf(Object obj)
+        Object obj = null;
+        System.out.println(obj); //不会报错  此处输出的实际值为(String.valueOf(obj))  对空指针进行了处理
+        //System.out.println(obj.toString()); //会报错  空指针异常
+    }
+    */
+    
+    /*
+    //正则表达式
+    
+    public static void main(String[] args)
+    {
+        System.out.println("aa".matches("^a{2}$"));
+        
+        System.out.println("ab".matches("^a{2}$"));
+        
+        String s1 = "https://www.bilibili.com/video/av11477533/?p=126";
+        
+        //将b替换为d
+        System.out.println(s1.replaceAll("b", "d"));
+        
+        //将tt替换为中
+        System.out.println(s1.replaceAll("t{2}", "中"));
+        
+        //将数字替换为正
+        System.out.println(s1.replaceAll("\\d", "正"));
+        
+        //将非数字替换为?
+        System.out.println(s1.replaceAll("\\D", "?"));
+    }
+    */
+    
+    //字符串缓冲区
+    
+    public static void main(String[] args)
+    {
+        //创建字符串缓冲区对象
+        StringBuffer sb = new StringBuffer(); //默认长度为16
+        
+        //添加字符串
+        String[] str = {"Mathe", "Algorithm", "multimedia", "Betriebssystem"};
+        
+        //推荐字符串频繁拼接使用StringBuffer或StringBuilder
+        for(int i = 0; i < str.length; i++)
+        {
+            if(i == str.length - 1)
+            {
+                sb.append(str[i]);
+            }
+            else
+            {
+                sb.append(str[i]);
+                sb.append(", ");
+            }
+        }
+        
+        System.out.println(sb);
     }
 }
