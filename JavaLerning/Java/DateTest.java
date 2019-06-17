@@ -1,6 +1,5 @@
 /*
-    关于日期类型:
-        -
+    关于日期类型
 */
 
 import java.util.Date;
