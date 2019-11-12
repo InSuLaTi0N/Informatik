@@ -416,7 +416,12 @@ public class ExceptionTest
 /* public */ class IllegalNameException extends Exception //编译时异常
 // public class IllegalNameException extends RuntimeException //运行时异常
 {
-    //定义异常
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    // 定义异常
     //一般提供两个构造方法
     public IllegalNameException(){}
     

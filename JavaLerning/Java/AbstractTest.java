@@ -13,7 +13,11 @@
         
         -抽象类中不一定有抽象方法, 但抽象方法必须存在于抽象类中
         -一个非抽象的类继承抽象类, 必须将抽象类中的抽象方法覆盖, 实现, 重写
+        
+        -抽象类不能被final修饰
+        -抽象方法不能被final修饰
 */
+//public final abstract class AbstractTest //报错: 非法的修饰符组合: abstract和final
 public abstract class AbstractTest
 {
     public static void main(String[] args)
