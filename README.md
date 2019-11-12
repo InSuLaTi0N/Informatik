@@ -6,4 +6,5 @@
    
    
 ### - 数学类  
-   - 
+   - [线性代数](https://github.com/InSuLaTi0N/Informatik/tree/master/Mathematik/Lineare%20Algebra)
+   - [数学分析](https://github.com/InSuLaTi0N/Informatik/tree/master/Mathematik/Mathematische%20Analyse)
