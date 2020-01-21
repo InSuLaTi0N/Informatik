@@ -17,14 +17,14 @@ public class TreeTest {
             String input = s.nextLine();
 
 
-            List<Node> nodes = tree.getNodes(input);
+            List<Node> nodes = tree.getNodes(input); //接受输入
 
             //System.out.println(nodes); //测试代码
             //System.out.println(nodes.size()); //测试代码
             
 
 
-            Node root = tree.createTree(nodes);
+            Node root = tree.createTree(nodes); //构建树
 
             tree.setEncodeLength(root);
 
@@ -136,13 +136,13 @@ class Tree {
             Node right = nodes.get(nodes.size() - 2);
         
         
-            Node parent = new Node(left.chars + right.chars, left.weight + right.weight);
+            Node parent = new Node(left.getChars() + right.getChars(), left.getWeight() + right.getWeight());
         
-            parent.leftNode = left;
-            parent.leftNode.parent = parent;
+            parent.setLeftNode(left);
+            parent.getLeftNode().setParent(parent);
 
-            parent.rightNode = right;
-            parent.rightNode.parent = parent;
+            parent.setRightNode(right);
+            parent.getRightNode().setParent(parent);
         
             nodes.remove(nodes.size() - 1);
             nodes.remove(nodes.size() - 1);
@@ -175,7 +175,7 @@ class Tree {
         
         while(i < j) {
         
-            while(i < j && nodes.get(j).weight <= base.weight) j--;
+            while(i < j && nodes.get(j).getWeight() <= base.getWeight()) j--;
             
             if(i < j) {
                 
@@ -184,7 +184,7 @@ class Tree {
 
             }
             
-            while(i < j && nodes.get(i).weight >= base.weight) i++;
+            while(i < j && nodes.get(i).getWeight() >= base.getWeight()) i++;
             
             if(i < j) {
             
@@ -210,15 +210,15 @@ class Tree {
 
         if(currentNode.hasLeftNode()) {
 
-            currentNode.leftNode.encodeLength = currentNode.encodeLength + 1;
-            setEncodeLength(currentNode.leftNode);
+            currentNode.getLeftNode().encodeLength = currentNode.encodeLength + 1;
+            setEncodeLength(currentNode.getLeftNode());
 
         }
 
         if(currentNode.hasRightNode()) {
 
-            currentNode.rightNode.encodeLength = currentNode.encodeLength + 1;
-            setEncodeLength(currentNode.rightNode);
+            currentNode.getRightNode().encodeLength = currentNode.encodeLength + 1;
+            setEncodeLength(currentNode.getRightNode());
 
         }
 
@@ -238,8 +238,8 @@ class Tree {
 
             Node tempNode = stack.pop();
 
-            if(tempNode.hasRightNode()) stack.push(tempNode.rightNode);
-            if(tempNode.hasLeftNode()) stack.push(tempNode.leftNode);
+            if(tempNode.hasRightNode()) stack.push(tempNode.getRightNode());
+            if(tempNode.hasLeftNode()) stack.push(tempNode.getLeftNode());
 
             if(!(tempNode.hasLeftNode()) && !(tempNode.hasRightNode())) encodeNodes.add(tempNode);
 
@@ -254,7 +254,7 @@ class Tree {
 
         for(Node node : encodeNodes) {
 
-            length += node.weight * node.encodeLength;
+            length += node.getWeight() * node.encodeLength;
 
         }
 
@@ -269,7 +269,7 @@ class Tree {
 
         for(Node node : encodeNodes) {
 
-            e += (-node.weight * (Math.log(node.weight) / Math.log(2)));
+            e += (-node.getWeight() * (Math.log(node.getWeight()) / Math.log(2)));
 
         }
 
@@ -294,13 +294,13 @@ class Node {
         
     //Fields
     
-    String chars; //节点包含的字符串
-    double weight; //节点的权重
+    private String chars; //节点包含的字符串
+    private double weight; //节点的权重
     
     //构建父节点及左右子节点
-    Node parent;
-    Node leftNode;
-    Node rightNode;
+    private Node parent;
+    private Node leftNode;
+    private Node rightNode;
 
     //构建根到节点路径长度
     int encodeLength = 0;
@@ -322,11 +322,41 @@ class Node {
         return parent == null;
     
     }
-    
-    public boolean isLeftNode() {
-    
-        return parent != null && this == parent.leftNode;
-    
+
+    public void setParent(Node parent) {
+
+        this.parent = parent;
+
+    }
+
+    public Node getParent() {
+
+        return parent;
+
+    }
+
+    public void setLeftNode(Node leftNode) {
+
+        this.leftNode = leftNode;
+
+    }
+
+    public Node getLeftNode() {
+
+        return leftNode;
+
+    }
+
+    public void setRightNode(Node rightNode) {
+
+        this.rightNode = rightNode;
+
+    }
+
+    public Node getRightNode() {
+
+        return rightNode;
+
     }
 
     public boolean hasLeftNode() {
@@ -341,9 +371,27 @@ class Node {
 
     }
 
-    public boolean isRightNode() {
+    public void setChars(String chars) {
 
-        return parent != null && this == parent.rightNode;
+        this.chars = chars;
+
+    }
+
+    public String getChars() {
+
+        return chars;
+
+    }
+
+    public void setWeight(double weight) {
+
+        this.weight = weight;
+
+    }
+
+    public double getWeight() {
+
+        return weight;
 
     }
     
