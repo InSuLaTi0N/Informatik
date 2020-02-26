@@ -24,10 +24,8 @@ public class HotelTest
         
         //String str = s1.next();
         
-        boolean b = true; //设置多次预退订
-        
         //分支操作: 「预订」「退订」
-        while(b)
+        while(true) //设置多次预退订
         {
             System.out.print("若您需要预订房间, 请输入「*」; 若您需要退订, 请输入「#」; 查看房间请输入「$」; 退出请输入「exit」: ");
         
@@ -35,11 +33,11 @@ public class HotelTest
             
             if("*".equals(str))
             {
-                System.out.print("选择您希望预订的房间, 输入000返回上一层: ");
+                System.out.print("选择您希望预订的房间, 输入0返回上一层: ");
                 
                 int num = s2.nextInt();
                 
-                if(num == 000)
+                if(num == 0)
                 {
                     System.out.println("退出预订");
                     
@@ -61,11 +59,11 @@ public class HotelTest
             }
             else if("#".equals(str))
             {
-                System.out.print("选择您要退订的房间, 输入000返回上一层: ");
+                System.out.print("选择您要退订的房间, 输入0返回上一层: ");
                 
                 int num = s2.nextInt();
                 
-                if(num == 000)
+                if(num == 0)
                 {
                     System.out.println("退出退订");
                     
@@ -91,7 +89,7 @@ public class HotelTest
             }
             else if("exit".equals(str))
             {
-                return;
+                break;
             }
             else
             {
@@ -110,25 +108,6 @@ class Hotel
     Hotel()
     {
         this(5, 10);
-        
-        for(int i = 0; i < rooms.length; i++)
-        {
-            for(int j = 0; j < rooms[i].length; j++)
-            {
-                if(i == 0 || i == 1)
-                {
-                    rooms[i][j] = new Room(((i + 1) * 100 + (j + 1)), "标准间", false);
-                }
-                else if(i == 2 || i == 3)
-                {
-                    rooms[i][j] = new Room(((i + 1) * 100 + (j + 1)), "双人间", false);
-                }
-                else
-                {
-                    rooms[i][j] = new Room(((i + 1) * 100 + (j + 1)), "豪华间", false);
-                }
-            }
-        }
     }
     
     Hotel(int rows, int cols)
