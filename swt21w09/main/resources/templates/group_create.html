@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device - width, initial - scale = 1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>🍀 Mach Dein Glück!! 🍀</title>
+    <link th:href="@{resources/css/style_statistic.css}" rel="stylesheet" href="../static/resources/css/style_statistic.css">
+</head>
+
+
+
+<body class="backgrounds">
+
+<nav th:include="navigation :: navigation" class="navcontainer"></nav>
+
+<div class="container">
+    <main class="box-one">
+
+        <h3>Gewinngemeinschaft</h3>
+
+        <h4>Gruppe erstellen</h4>
+
+        <section>
+            <form method="post" th:action="@{/group_create}">
+                <div class="style">
+                    <label style="padding-right: 5px">Gruppenname:</label>
+                    <input id="groupName" name="groupName" field="*{groupName}" type="text" required="required"/><br/>
+                </div>
+
+                <br>
+
+                <button type="submit" class="ui button" th:text="#{group.create}" style="font-size: 15px">Gruppe einrichten</button>
+            </form>
+        </section>
+
+        <br>
+
+        <div>
+            <form sec:authorize="hasRole('CUSTOMER')" class="ui form" method="post" th:action="@{/closeToMyProfile}">
+                <button type="submit" sec:authorize="hasRole('CUSTOMER')" class="ui button" th:text="#{group.close}">Erstellung abrechen</button>
+            </form>
+        </div>
+
+        <br>
+
+        <div>
+            <form sec:authorize="hasRole('CUSTOMER')" class="ui form" method="post" th:action="@{/close}">
+                <button type="submit" class="ui button" th:text="#{group.groupList}">Zur Liste aller Gruppen</button>
+            </form>
+        </div>
+
+        <div>
+            <h2 th:text="${message}" style="color: white"></h2>
+        </div>
+
+
+
+
+    </main>
+
+    <footer>
+        <p>Mach Dein Glück!! ©Copyright 2021©</p>
+    </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+= Protokoll Gruppe 09
+
+
+Treffen am 13.12.2021
+
+Ort:      Discord
+Beginn:   14:50 Uhr +
+Ende:     15:05 Uhr
+
+__Schriftführer:__ Sophie Schulze
+
+*Nächstes Treffen:* +
+10.01.2022, 14:50 Uhr, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Andre Schmidt (Kunde)
+- Yu-Ju Chen
+- Song Bai
+- Yutian Lei
+- Mirek Král
+- Sophie Schulze
+
+== Bemerkungen
+-
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|11    
+|Klassendiagramme erweitern      
+|in Arbeit     
+a|
+* Package lotteryresult wurde hinzugefügt
+
+|12    
+|Gewinngemeinschaft erstellen    
+|fertig      
+|-
+
+|14    
+|Testfälle      
+|in Arbeit      
+a|
+* fehlende Tests:
+** Abgabe von Gruppenwetten im Catalog Controller
+** Auswertung von Gruppenwetten im ResultController
+|===
+
+
+== Aktueller Stand
+
+* Anwendung erfüllt die Muss-Kriterien
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|11     
+|Klassendiagramme erweitern     
+|Klassendiagramme an Änderungen im Code anpassen            
+a|
+* Order: Yuju
+* Kunde: Mirek, Song
+* Statistik: Yutian
+* Katalog: Sophie
+|noch nicht angepasst an die Funktionalitäten Gewinngemeinschat erstellen, Wetten in der Gruppe, Ausweertung von Gruppenwetten
+
+|14     
+|Testfälle     
+|Tests implementieren (Fortsetzung von letzter Woche)            
+a|
+* Katalog: Yuju, Sophie
+* lotteryresult: noch nicht entschieden
+a|es fehlen noch die Tests für:
+* Abgabe von Gruppenwetten im Catalog Controller
+* Auswertung von Gruppenwetten im ResultController
+
+|15     
+|Cross-Testing Feedback     
+|das Dokument Cross-Testing Feedback ausfüllen            
+|alle                
+|in Arbeit
+
+|16
+|Auswahl von Kann-Kriterien
+|es ist zu entscheiden, welche Kann-Kriterien unsere Anwendung noch erfüllen soll
+|alle
+|in Arbeit
+|===
