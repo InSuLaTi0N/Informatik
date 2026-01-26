@@ -1,0 +1,60 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2020/21
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von:** Friedemann Weickert
+
+**Aufgabenbereich:** Frontend/Scrum Master
+
+**Gruppe: 36**
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+
+Während des Praktikums konnte ich meine HTML Kenntnisse aufarbeiten und erweitern.Des Weiteren habe ich den Umgang mit
+Spring/thymleaf gelernt. Ich fühle mich falls ich in Zukunft in den Bereich der Frontendentwicklung gehen möchte gut
+vorbereitet.
+
+Der Entwicklungsprozess war zwar durch die Meilensteile klar abgesteckt, jedoch war die Verteilung der Arbeitsmengen
+nicht annähernd gleichmäßig. Für die Einarbeitung und den Entwicklungsprozess stand nicht genug Zeit zur Verfügung,
+während spätere Aufgaben innerhalb einiger weniger Stunden abgearbeitet waren. Auch fand keine Umsetzung des anfänglich
+angekündigten Scrumprozesses statt. Auf meine Aufgabe als Teamleiter konnte ich mich auch nicht wirklich konzentrieren,
+da ich meine Zeit stattdessen damit verbringen musste als Teammitglied zu fungieren und mir die Frameworks azueignen.
+Dies fand ich sehr Schade, da mich Teamleitung sehr interessiert und ich hierzu gerne mehr gelernt hätte.
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+
+Die Zusammenarbeit im Team lief überraschend reibungsarm. Teaminterne Probleme treten immer auf, jedoch war ich
+überascht, wie Wenige wir hatten. Ich hatte erwartet, dass auf meine Teammitglieder weniger Verlass ist. In Zukunft
+werde ich mehr darauf achten, dass die Teilaufgaben für jedes Mitglied klarer formuliert sind und, dass das Team einen
+gemeinsamen Qualitätsstandard entwickelt der von allen als sinnvoll erachtet wird und and den sich alle halten.
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+
+Ich habe selbst nicht viel mit Salespoint arbeiten müssen, habe aber durch Rücksprache mit anderen Teammitgliedern
+gemerkt, dass Salespoint zwar einen schnellen Start in das Projekt ermöglicht, es aber für komplexere Features nicht
+erweiterbar genug ist und viel mit Workarounds gearbeitet werden musste. Für mich bedeutet das, dass ich bei zukünftigen
+Projekten die Auswahl von zu nutzenden Frameworks relativ am Ende des Designprozesses ansiedeln werde.
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+Anpassung der Meilensteile um mehr Zeit für die Einarbeitung/Designprozess zu zulassen:
+
+1. Woche Einführung mit Guestbook
+2. Woche Videoshop Erweiterung
+3. / 4. Woche Design der eigentlichen Anwendung
+
+Die dafür benötigt Zeit kann aus dem Entwicklungszeitraum zwischen Prototyp und Basisfunktionalität herausgenommen
+werden, da hier viel Zeit für relativ wenig Aufwand war.
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Die Arbeit mit unserer Tutorin war sehr zufriedenstellend. Fragen wurden vom "Kunden" beantwortet und bei Problemen
+konnte man einen Tipp oder eine weiterführende Idee erwarten. Auch wurden Mittel bereit gestellt um die Teamkomunikation
+zu vereinfachen.
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?

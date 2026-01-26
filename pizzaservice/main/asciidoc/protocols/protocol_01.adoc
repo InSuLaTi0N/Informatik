@@ -1,0 +1,33 @@
+= Protokoll Gruppe 36
+
+Treffen am 28.10.2020
+
+Ort:      digital bei BBB +
+Beginn:   16:55 Uhr +
+Ende:     17:25 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+04.11.2020, 16:30 Uhr, APB
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyshchenko
+- Ludwig Pauly
+- Song Bai
+- Serafina Löffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+
+== Aktueller Stand
+- alle Mitglieder zum Repository der Gruppe hinzugefügt
+- Einigung auf vorerst wöchentliches Treffen im APB in Präsenz
+- besprochen wie man das Repository klont
+- MagicDraw UML Lizenzbeschaffung wurde besprochen
+- Trello wurde eingerichtet

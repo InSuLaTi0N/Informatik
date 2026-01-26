@@ -1,0 +1,29 @@
+= Protokoll Gruppe 36
+
+Treffen am 04.11.2020
+
+Ort:      APB +
+Beginn:   17:30 Uhr +
+Ende:     19:00 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+11.11.2020, 17:30 Uhr, APB
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+- Song Bai ist zurückgetreten
+
+== Aktueller Stand
+- grober Programmablauf wurde diskutiert und an der Tafel aufgezeichnet
+- CRC-Karten wurden erstellt und teilweise ausgefüllt

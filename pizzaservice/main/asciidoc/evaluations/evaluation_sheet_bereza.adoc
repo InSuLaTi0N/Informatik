@@ -1,0 +1,47 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2020/21
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von: Andrej Bereza**
+
+**Gruppe: 36**
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+Da ich in diesem Projekt sowohl am Frontend als auch Backend gearbeitet habe, habe ich meine Java- und HTML-Kenntnisse signifikant verbessern können.
+Zusätzlich habe ich den Umgang mit Spring, Salespoint und Thymeleaf im Laufe des Projekts gelernt.
+Dies erfolgte größtenteils über sehr viel googlen und damit auch Stackoverflow, da ich die Einführungsvorlesungen nicht wirklich hilfreich fand.
+Im Gegensatz dazu war der Videoshop als Vorbildprojekt an sehr vielen Stellen sehr hilfreich.
+
+Die Arbeit mit MagicDraw erweiste sich gegen Ende beim Zusammenführen von den verschiedenen Diagrammen als sehr mühsam, da beim Kopieren von UML-Diagrammen die schön zurechtgerückten Pfeile kaputtgehen und Differenzen zwischen der Windows- und Mac-Version bestehen, die dazu führen, dass die Diagramme zwischen den Betriebssystemen unterschiedlich aussehen.
+Ich habe bei MagicDraw gesehen, dass es dazu eine Lösung gibt ("Teamwork Server"), für die man aber eine Lizenz erwerben muss.
+Solange hier seitens des Lehrstuhls keine Lizenz bereitgestellt wird, ist kollaboratives Arbeiten mit MagicDraw schwer möglich.
+Falls dies bei anderen Modellierungstools einfacher möglich ist, würde ich mir eine entsprechende Empfehlung und kleine Einführung vom Lehrstuhl zukünftig wünschen.
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Jeder im Team hat sich an der ein oder anderen Stelle eingebracht und keiner hat sich vollkommen vor dem Projekt gedrückt, was nicht unbedingt selbstverständlich ist.
+Im Team haben wir uns oft getroffen und anfallende Aufgaben versucht auf alle Mitglieder zu verteilen.
+Das finde ich prinzipiell gut, aber ich habe immer wieder die Erfahrung machen müssen, dass sich hierbei einige Mitglieder sehr viel Zeit lassen, oder die Aufgaben nicht in vollem Umfang erfüllen konnten, sodass ich hier an sehr vielen Stellen eingegriffen habe.
+Dabei ist mir auch klar geworden, dass meine Qualitätsansprüche und Motivation in diesem Projekt ein gutes Ergebnis abzuliefern von anderen Teammitgliedern anders gesehen werden. An einem Punkt, habe ich tagelang rumgesessen und gewartet bis einige Aufgaben bis zu einem Tutorenmeeting erledigt werden, nur um dann wenige Tage davor feststellen zu müssen, dass nur ein Bruchteil von dem was ich unter der Aufgabe verstanden habe, fertiggestellt wurde.
+Das finde ich sehr frustrierend, aber mir ist auch klar das meine Kommunikation in diesen Aspekten sehr viel zu wünschen lässt, was ich in zukünftigen Projekten hoffentlich besser umsetzen kann.
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+Bezüglich Spring und Thymeleaf habe ich keine größeren Probleme gehabt und fand die Frameworks auch sehr gut einsetzbar.
+Das Gleiche kann ich über Salespoint leider nicht behaupten.
+Salespoint bietet ein gutes Fundament und nimmt einem sehr viel Aufwand ab, aber durch die stark eingeschränkte Erweiterbarkeit im zentralen Order-Modul, gab es Probleme.
+Ich musste einige Workarounds anwenden, um die Anforderungen der Aufgabenstellung umsetzen zu können.
+Dies ist insbesondere bei der Order-Klasse mit ihren OrderLine- und ChargeLine-Objekten der Fall.
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+Dass der Aufwand den man hier neben seinen anderen Modulen betreibt, nicht mit einer Note belohnt wird, finde ich persönlich sehr schlecht. Eine Benotung wäre bestimmt auch der Motivation der Studierenden förderlich.
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Ich fand die Betreuung durch unsere Tutorin stets angenehm und bin dankbar dafür, dass sie sich neben ihrer Bachelorarbeit so gut um uns gekümmert hat.
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?

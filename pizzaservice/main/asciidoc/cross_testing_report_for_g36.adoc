@@ -1,0 +1,132 @@
+= Cross-Testing Feedback
+
+__Durchführende Gruppe:__ 30
+
+__Anwendung von Gruppe:__ 36
+
+== Getestetes System
+Pizza bestellen, vorbereiten, liefern/pickup; Neue Customer und Employee erstellen, Information aktualisieren; Bilanzfunktion.
+
+Vorwort: Alle Errors bei denen die Fehler Seite aufgerufen wird(internal server error) werden zwar vom System
+abgefangen.
+Aber sind mit aufgelistet, da dem Nutzer keinerlei Information zur Verfügung steht warum es ein Problem gab.
+
+Wirkliche WhiteLabel Error Pages kann man nicht erzeugen, da ihr für diese Fälle eigene Fehlerseiten erzeugt. Praktisch, aber meist vermeidbar durch bessere Begrenzungen eurer Textfehler (d.h. statt Fehlerseite, eine Fehlermeldung auf der Eingabeseite, die zur richtigen Eingabe zwingt)
+
+[options="header"]
+|===
+|Aufgabe |Beschreibung
+|Home| Man gelangt auf den Startbildschirm.
+|Admin einloggen| Man kann sich auf der Startseite als admin einloggen, es erscheinen mehrere Buttons
+|Mitarbeiter u. Kunden registrieren| Man kann als Admin neue Mitarbeiter anlegen.
+|Mitarbeiter löschen| Man kann  als Admin neue Mitarbeiter/Kunden löschen.
+|Mitarbeiter u. Kunden bearbeiten| Man kann als Adminneue Mitarbeiter/Kunden löschen.
+|Ofenanzahl erhöhen| Man kann als Admin die Ofenanzahl erhöhen.
+|Bestellung aufgeben| Man kann eine Bestellung in Auftrag geben und Produkte hinzufügen
+|Pizza zubereiten| Wenn eine Bestellung aufgegeben wurde kann sie unter
+|Bestellung ausliefern| Bestellungen können ausgeliefert werden
+|Auslieferung bestätigen| Man kann ausgelieferte Bestellungen bestätigen
+->Danach sind sie nur noch unter Rechnung sichtbar.
+|Abholung bestätigen| Man kann abgeholte Bestellungen bestätigen
+->Danach sind sie nur noch unter Rechnung sichtbar.
+|Sortiment sortieren| Man kann nach einem bestimmten Produkttyp sortieren.
+|Sortiment hinzufügen| Man kann ein Produkt dem Sortiment hinzufügen.
+|Sortiment bearbeiten| Man kann ein die Attribute eines Produktes ändern.
+|Filiale->Rechnung->Aufträge|(Admin) Die Rechnung von abgeholter oder bestätigter Aufträge wird korrekt angezeigt.
+|Filiale Rechnung Datum ändern|(Admin) Das Datum zu ändern scheint zu funktionieren(aber mangelnde Testmöglichkeiten).
+|===
+
+== Fehler-Report
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+|===
+|Pfad |Parameter |Beschreibung |Rückgabe
+| Mitarbeiter/Kunde registrieren | Name/Vorname | kann aus Zahlen und Sonderzeichen  bestehen | …
+| Mitarbeiter/Kunde registrieren | Alle String eingaben | Zu lange Texteingaben| internal server error
+| Mitarbeiter/Kunde registrieren | Zahleneingaben | Zu große Zahlen Eingabe |internal server error
+| customerRegister | Man legt einen neuen Kunden an | Man legt einen neuen Kunden mit einer Telefonnummer an, die ein anderer Kunde bereits hat.| Was machen Kunden in einem Haushalt (selbe Festnetznummer) o.ä. ? Es sollte doch schon durch die verschiedenen TANs Unterschiede geben.
+
+| Bestellung aufgeben | Preis| Bei zu langen Eingaben im Sortiment, ist es nicht mehr möglich eine Bestellung aufzugeben-> Sackgasse | …
+| Bestellungen | Produkt| Nachdem man aus der Sackgasse von Bestellung aufgeben entkommen ist(siehe oben) ( durch Seite neu laden->error), wird eine Bestellung ohne Produkt angezeigt, diese hat keine Produkte, kann nicht zubereitet und nicht ausgeliefert werden | …
+| Bestellung aufgeben | TAN | Buchstaben Eingabe| internal server error
+| Bestellung aufgeben | - | Seite neu laden| Method not allowed
+| Bestellung aufgeben | - | Man gelangt nicht wieder zurück zum Menu: Sackgasse|  …
+| Bestellung aufgeben | alternative Adresse | es wird keine Hausnummer gefordert | …
+| order/new | Phone: 1234; Tan:(Tan des Kundes)| In Repo existiert zwei Customer mit gleicher Handynummer, wenn eine davon bei der Bestellung eingegeben wird, führt es zum Error | Internal Server Error
+| order/new/items/addDiningSet | Essgarnituren: 500 | zu große Anzahl der Essgarnituren führt zum Error, aber wenn man zum Order-Seite zurückgehen, ist die Bestellung erfolgreich erstellt| Internal Server Error
+| order/new/items/done |Bestellpreis über 30 Euro |Wenn man alle Getränke löscht, eine Bestellung über 30 Euro aufgibt |Sackgasse, man kommt nicht weiter und es gibt keine Möglichkeit zurück zu gehen (wenn man aber von dort aus wieder über den Browser http://localhost:8080/order aufruft, ist die Bestellung da, ohne Freigetränk und ohne jemals die neue TAN angezeigt zu haben)
+| order | große Bestellung mit hohem Preis| Wenn man eine Bestellung mit hohem Preis anlegt| Das Frontend verschiebt sich
+| order/new/items |Bestellung aufgeben|Wenn es keine Belege verfügbar sind | Sackgasse (wenn man aber von dort aus wieder über den Browser http://localhost:8080/order aufruft, ist die Bestellung da für 0 Euro, ohne jemals die neue TAN angezeigt zu haben und ohne eigentlich eine Bestellung aufgegeben zu haben, diese wird dann auch bei order/view/done angezeigt, kann aber nicht ausgeliefert werden)
+| Essgarnitur zurückgeben | Telefonnummer, Anzahl | Es war nicht möglich eine Essgarnitur zurückzugeben, (tatsächlich zurückgegeben: 0)| …
+| Essgarnitur zurückgeben, Rechnung | Bilanz | Es wird keine Bilanzänderung für nicht zurückgegebene Essgarnituren vorgenommen| …
+
+| Sortiment | Preis, Name | zu lange Eingaben führen sowohl bei Preis und auch bei Name zu: | internal server error
+| Sortiment | Preis| Bei Eingaben von 50 Stellen oder mehr können keine Produkte mehr bearbeitet oder gelöscht werden, da sich das UI nicht an die länge anpasst | …
+| catalog/add |Preis: absurd hoch | Wenn man eine neue Zutat mit sehr hohem Preis speichert | Frontend verschiebt sich merklich
+
+| Filiale | Bilanzen | Es werden völlig falsche negative Beträge angegeben, Ursache liegt womöglich am Datentyp und der Gehälter für die Admins| …
+|===
+
+Der Admin kann sich selbst löschen und hat aber noch vollen Zugriff auf die Features bis er sich ausloggt.
+Es können dann auch alle Mitarbeiter gelöscht werden und es kann alles vollständig benutzt werden bis man sich ausloggt.
+
+== Sonstiges
+* Optik der Anwendung
+** sieht klar und schön aus.
+** Sehr gut, sieht Super aus!
+** Wofür wird die Bestell-ID bei Bestellungen angezeigt?
+** Wofür gibt es eine Kunden ID und wieso wird diese angezeigt?
+** Sonst sehr schön!
+** UX/UI gut. Seite ist übersichtlich und Funktionen sind klar verteilt.
+
+* Fehlende Features
+** Nicht überprüfbar, da kein Pflichtenheft zur Verfügung steht
+
+* Probleme
+** Jedes Mal nach der Bestellung ein neue TAN gegeben wird, das man nie wieder in System anfragen kann.
+Wenn Kunden TAN verloren haben, müssen sie erneut registieren, was unpraktisch ist.
+** Man kann die Telefonnummer zu einer existierten Nummer ändern oder erstellen.
+** Beim TableReturn-Testen ist, einmal klappt aber einmal nicht (System zeigt: actual returning number 0).
+Wie bestätigt der Benutzer das Gründen für nicht erfolgreiche Zurückgeben? Wann kann der Essgarnitur zurückgegeben wird?
+** Nachdem ein neues Employee hinzugefügt wird, dessen ID 8 ist. (Es sollte 5 sein, oder?)
+** Admin kann sich selbst löschen
+** Keine Bereinigung / Begrenzung der Eingabefelder --> Seite meldet Fehler zurück, wenn man bspw. viele Zeichen eingibt.
+** TAN wird mehrfach vergeben? Jeder User bekommt eine TAN bei der registrierung und bei der Bestellung?
+
+* Interaktion mit der Anwendung (Usability)
+** Es fehlen einfache Nachrichten an den User, was gerade im System passiert bspw das Konzept mit dem Backtackt,
+Die Tan ist umständlich und nicht notieren der neuen Tan führt dazu das man die Anwendung neustarten muss da man Sie
+nirgends wiederfindet, die Tan neuer Nutzer ist außerdem nicht einsehbar
+** TAN kann nirgendwo eingesehen werden, wenn sie einmal weg ist, ist der Kunde unbenutzbar bzw. was macht ein Kunde der seine TAN verloren hat? Dieser Kunde muss zunächst gelöscht werden und komplett neu angelegt werden, da man nicht 2x dieselbe Telefonnummer vergeben werden kann.
+** Keine gut sichtbare Bestätigung, dass die Essgarnituren zurückgegeben wurden. (Mit den 90 Sekunden Zeitfenster auch nicht gut testbar)
+** Man sollte in Bestellungen zurück gehen können, sonst ist die Usability eingeschränkt.
+** Bestellung aufgeben: Alternative Adresse kann jedes mögliche Format haben
+
+== Verbesserungsvorschläge
+
+* Im Bilanz anzeigen, wie die Gehälter berechnet werden? (z.B. für wen? Lohn X Zeit = ..., usw.)
+* In der Bestellung oder Catalog zeigt, wie viele Essgarnituren noch verfügbar.
+* Bei der Registierung der Employee: die Rolle und Adresse als Optionen listen.
+* Man kann sich verwirren, dass der Lohn für neue Employee hourly? daily? weekly?
+
+* Stundenlohn der Admins
+* Für die "Rolle" unter "Mitarbeiter registrieren" sollten alle verfügbaren Optionen sichtbar sein
+* Mitarbeiter registrieren: Straßen und Orte sind Eigennamen und sollten in der Regel groß geschrieben werden.
+* ! Die verfügbaren Telefonnummern der Kunden sollten immer als Optionen sichtbar
+sein für Bestellung aufgeben und Essgarnitur zurückgeben!
+* Wie wird verhindert das ein Admin den Besitzer aus dem System wirft?
+* Für wen wird Gehalt gezahlt?(Unter Filiale)
+* Tan eingabe umständlich, War das gefordert? Was passiert wenn man vergisst sich die neue Tan zu notieren?
+* Die Nachricht es sind keine Pizzas zum zubereiten verfügbar ist verwirrend, da im Sortiment ja allerhand
+angezeigt wird, besser wäre, es ist keine Bestellung verfügbar die zubereitet werden muss.
+* Confirm button unter Pizza zubereiten(zubereitet)
+ist verwirrend: besser: zubereiten(da anscheinend danach erst der "Backtackt" startet)
+* Man kann bei Bestellung aufgeben auch nach Sortiment sortieren.
+* Unter zubereitung werden Backaufträge nach der jeweiligen Bestellung sortiert
+* Such oder Sortieroptionen bei Bestellungen
+
+* Mitarbeiter registrieren: Rolle -> besser mit Drop-Down-Menü oder Checkboxen für die 2 vorhandenen Rollen, man könnte ja die Rechtschreibung/Rollenname o.ä. vergessen und die Fehlermeldung zeigt diese zwar, es wäre aber unumständlicher eine Auswahl oder zumindest ein Auto Fill einzubinden
+* Mitarbeiterdaten aktualisieren: man kann den Nutzernamen nicht ändern
+* Bestellung aufgeben: Ich fände es praktisch, wenn es einen Button gäbe, der zur Kundenregistrierung führt, da nicht alle Kunden, die bestellen wollen, schon im System sind.
+
+* Dropdown-Menü bei Rollenwahl, wenn neuer Mitarbeiter angelegt wird

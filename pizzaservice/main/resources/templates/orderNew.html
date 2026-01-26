@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{order.new}">Bestellung aufgeben</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{order.new}">Bestellung aufgeben</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/order}" th:text="#{order.back}">Zurück</a>
+            <div class="right menu">
+                <a class="item" th:href="@{/customerRegister}" th:text="#{customer.new}">Kunden registrieren</a>
+            </div>
+        </div>
+    </nav>
+
+    <br/>
+
+    <form class="ui form" th:action="@{/order/new/authenticate}" th:object="${authenticationForm}" method="post">
+        <div class="field">
+            <label th:text="#{order.telephoneNumber}">Telefonnummer</label>
+            <input type="number" th:field="*{telephoneNumber}" required="required" min="1" max="999999999999999" step="1"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('telephoneNumber')}" th:errors="*{telephoneNumber}">
+                <p>Die Telefonnummer darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{order.tan}">TAN</label>
+            <input type="number" th:field="*{tan}" required="required" min="1" max="999999" step="1"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('tan')}" th:errors="*{tan}">
+                <p>Die TAN darf nicht leer sein!</p>
+            </div>
+        </div>
+        <button class="ui left floated button" th:text="#{order.authenticate}">Authentifizieren</button>
+    </form>
+</div>
+</body>
+</html>

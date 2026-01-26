@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{employee.new.title}">Mitarbeiter registrieren</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{employee.new.title}">Mitarbeiter registrieren</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/employee}" th:text="#{customer.cancel}">Abbrechen</a>
+        </div>
+    </nav>
+
+    <br/>
+
+    <form class="ui form" th:action="@{/employeeAdd}" th:object="${employeeRegistrationForm}" method="post">
+        <h3 class="ui dividing header" th:text="#{employee.userdata}">Mitarbeiterdaten</h3>
+        <div class="field">
+            <label th:text="#{employee.userName}"></label>
+            <input type="text" th:field="*{userName}" th:errorclass="fieldError" required="required"
+                   maxlength="20"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
+                <p>Der Nutzername darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.firstName}"></label>
+            <input type="text" th:field="*{firstName}" th:errorclass="fieldError" required="required"
+                   maxlength="50"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                <p>Der Vorname darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.lastName}"></label>
+            <input type="text" th:field="*{lastName}" th:errorclass="fieldError" required="required"
+                   maxlength="50"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                <p>Der Nachname darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.password}">Passwort</label>
+            <input type="password" th:field="*{password}" th:errorclass="fieldError" required="required"
+                   maxlength="30"/><br/>
+            <div class="ui negative message"  th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                <p>Das Passwort darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.confirmpassword}">Confirm password</label>
+            <input type="password" th:field="*{confirmpassword}" th:errorclass="fieldError" required="required"
+                   maxlength="30"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('confirmpassword')}"
+                 th:errors="*{confirmpassword}">
+                <p>Das Passwort darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.street}">street</label>
+            <input type="text" th:field="*{street}" th:errorclass="fieldError" required="required" maxlength="40"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
+                <p>Die Straße darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.houseNumber}">Adresse</label>
+            <input type="number" th:field="*{houseNumber}" th:errorclass="fieldError" min="1" max="1000" step="1"
+                   required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">
+                <p>Die Hausnummer darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.plz}">Adresse</label>
+            <input type="text" th:field="*{plz}" th:errorclass="fieldError" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">
+                <p>Die Postleitzahl darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.city}">Adresse</label>
+            <input type="text" th:field="*{city}" th:errorclass="fieldError" required="required" maxlength="40"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                <p>Die Stadt darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.salary}">Gehalt</label>
+            <div class="right labeled ui input">
+                <input type="number" th:field="*{salary}" th:errorclass="fieldError" min="0.01" max="1000000.00"
+                       step="0.01" required="required">
+                <div class="ui label">€</div>
+            </div>
+            <div class="ui negative message" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">
+                <p>Das Gehalt darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.weeklyHours}">Gehalt</label>
+            <div class="right labeled ui input">
+                <input type="number" th:field="*{weeklyHours}" th:errorclass="fieldError" min="1" max="168" step="1"
+                       required="required"/>
+                <div class="ui label">h</div>
+            </div>
+            <div class="ui negative message" th:if="${#fields.hasErrors('weeklyHours')}" th:errors="*{weeklyHours}">
+                <p>Die Wochenstunden dürfen nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{employee.role}">Gehalt</label>
+            <select type="text" th:field="*{role}" th:errorclass="fieldError" required="required">
+                <option value="EMPLOYEE">EMPLOYEE</option>
+                <option value="ADMIN">ADMIN</option>
+            </select><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">
+                <p>Die Rolle darf nicht leer sein!</p>
+            </div>
+        </div>
+        <button class="ui button" th:text="#{employee.submit}">Registrieren</button>
+    </form>
+</div>
+</body>
+</html>

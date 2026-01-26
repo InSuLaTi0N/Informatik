@@ -1,0 +1,42 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2020/21
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von: Ludwig Pauly**
+
+**Gruppe: 36**
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+Da ich mich hauptsächlich mit Spring und Datenbanken beschäftigt habe, habe ich in diesem Bereich sehr viel gelernt.
+Auch mein allgemeiner Java Workflow hat sich verbessert. Mir ist zudem nichts aufgefallen, was ich nicht gelernt habe,
+aber das liegt vielleicht in der Natur dieses Umstandes.
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Eine Erfahrung, die zwar nicht gänzlich neu, aber wieder ziemlich Präsent war, ist, dass Kommunikation in der Gruppe
+und Teamarbeit alles ist. So ist es nicht verwunderlich, dass unsere Gruppe immer bei nicht Absprachen und Soloaktionen
+ihre schwersten Zeiten hatte. Auch gab es durchaus verschiedene Ansichten, was für ein Anspruch man selber an das
+fertige Produkt stellt, was zu stärkeren Differenzen führte.
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+Da ich mich vorrangig, wie oben erwähnt, mit Spring auseinandergesetzt habe, habe ich in diesem Framework viel gemacht
+und würde es an passender Stelle auch wiederverwenden. Das Salespoint Framework war durch seine Struktur eine große
+Hilfe um eine Idee für einen möglichen Aufbau zu bekommen. Jedoch erwies sich seine nicht Erweiterbarkeit an manchen
+Stellen, durchaus als anstrengend.
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+Das einzige wäre vielleicht eine Benotung, da der Aufwand in Relation zur Bewertung sehr hoch ist.
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Ich war eigentlich vollkommen zufrieden, auch wenn vielleicht Andere aus der Gruppe, das nicht so sehen würden, da diese
+freie Arbeitsweise mehr in meiner Natur liegt, als das ständige Nachfragen. Wenn es darauf ankam, war dann auch das
+Feedback und die Unterstützung da. Allgemein hat sich unsere Tutorin auch sehr viel Zeit für unsere Gruppe genommen.
+Ich hab auch allem  in allem nichts an ihrer Arbeit auszusetzen.
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?

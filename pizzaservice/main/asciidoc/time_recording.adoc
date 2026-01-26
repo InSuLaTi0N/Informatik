@@ -1,0 +1,43 @@
+= Zeiterfassung für Gruppe 36
+
+
+// See http://asciidoctor.org/docs/user-manual/#tables
+[option="headers"]
+|===
+|Woche |Ludwig  |Serafina |Dmytro  |Friedemann |Andrej  |Meeting
+|1     |2h      |2h       |2h      |2h         |8h      |1h
+|2     |6h      |8h       |6h      |7h         |5h      |17h
+|3     |15h     |17h      |13h     |13h        |36h     |8h
+|4     |7h      |16h      |14h     |9h         |13h     |2h
+|5     |20h     |21h      |26h     |24h        |39h     |5h
+|6     |6h      |5h       |6h      |8h         |7h      |4h
+|7     |5h      |11h      |8h      |7h         |15h     |1h
+|8     |15h     |8h       |11h     |22h        |25h     |1h
+|9     |14h     |16h      |12h     |26h        |32h     |1h
+|10    |3h      |11h      |5h      |5h         |3h      |2h
+|11    |4h      |2h       |1h      |1h         |2h      |3h
+|12    |5h      |10h      |6h      |36h        |11h     |2h
+|===
+
+[option="headers"]
+|===
+|Student    |Summe der Arbeitsstunden in h
+|Ludwig     |102
+|Serafina   |127
+|Dmytro     |110
+|Friedemann |160
+|Andrej     |196
+|===
+
+
+[option="headers"]
+|===
+|Student    |Arbeitsstunden pro Woche in h
+|Ludwig     |8,5
+|Serafina   |10,6
+|Dmytro     |9,2
+|Friedemann |13,3
+|Andrej     |16,3
+|===
+
+Durchschnittliche Arbeitszeit aller Studenten pro Woche: 11,6h

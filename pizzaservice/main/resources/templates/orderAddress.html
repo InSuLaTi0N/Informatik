@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{order.deliveryAddress}">Lieferadresse</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{order.deliveryAddress}">Lieferadresse</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/order/new}" th:text="#{order.back}">Zurück</a>
+            <div class="right menu">
+                <a class="item" th:href="@{/order}" th:text="#{nav.order}">Bestellungen</a>
+            </div>
+        </div>
+    </nav>
+
+    <br/>
+
+    <div class="ui two column stackable center aligned page grid">
+        <div class="two column wide ui vertical menu">
+            <div class="item">
+                <form class="ui form" th:action="@{/order/new/items}" method="post">
+                    <div class="field">
+                        <input type="hidden" name="street" value="Sachsenhausen">
+                        <input type="hidden" name="houseNumber" value="1">
+                        <input type="hidden" name="plz" value="01234">
+                        <input type="hidden" name="city" value="Dresden">
+                        <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                        <input type="hidden" name="customerToken" th:value="${customerToken}"/>
+                        <input type="hidden" name="address" id="defaultAddress" value="defaultAddress"/>
+                        <button class="ui button" th:text="#{order.address.default}"></button>
+                    </div>
+                </form>
+            </div>
+            <div class="item">
+                <form class="ui form" th:action="@{/order/new/address}" method="post">
+                    <div class="field">
+                        <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                        <input type="hidden" name="customerToken" th:value="${customerToken}"/>
+                        <button class="ui button" th:text="#{order.address.other}"></button>
+                    </div>
+                </form>
+            </div>
+            <div class="item">
+                <form class="ui form" th:action="@{/order/new/items}" method="post">
+                    <div class="field">
+                        <input type="hidden" name="street" value="Sachsenhausen">
+                        <input type="hidden" name="houseNumber" value="1">
+                        <input type="hidden" name="plz" value="01234">
+                        <input type="hidden" name="city" value="Dresden">
+                        <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                        <input type="hidden" name="customerToken" th:value="${customerToken}"/>
+                        <input type="hidden" name="address" id="pickup" value="pickUp"/>
+                        <button class="ui button" th:text="#{order.address.pickup}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+= Protokoll Gruppe 36
+
+Treffen am 11.11.2020
+
+Ort:      APB +
+Beginn:   16:50 Uhr +
+Ende:     18:40 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+19.11.2020, 16:50 Uhr, APB
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+- Anzahl der Öfen soll einstellbar sein (nicht zeitsensitiv!)
+- Pizzabäcker sollte Pizza als vorbereitet setzen können
+- Lieferbote sollte Bestellung als fertig setzen können
+- Videoshop-Erweiterung bis Sonntag abgeben (eigener Branch im privaten Videoshop-Repo)
+- Wöchentliche Abrechnung muss auch nicht zeitsensitiv erstellt werden können
+- Abschnitt 2: mehr Bezug auf Ziele
+- Abschnitt 3: Browser hinzufügen
+- Abschnitt 4: Admin als Stakeholder beachten
+- Pizzabäcker/Lieferbote in Mitarbeiter vereinen und nur zwischen Mitarbeiter/Admin unterscheiden
+- nur Mitarbeiter als Akteur ohne Rollenunterschiede (+Admin)
+- Abschnitt 5: nur unregistrierten Mitarbeiter und Mitarbeiter als Schnittstellen
+- Abschnitt 6: OrderLines anzeigen und OrderLineStatus als 1 Use-Case jeweils und nicht unterscheiden
+- Abschnitt 8: Maintainability + Usability wichtig
+- Abschnitt 9: GUI-Prototyp nur grob
+- Abschnitt 10: Anpassungen zusammen mit dem Tutor, Klassen noch erläutern

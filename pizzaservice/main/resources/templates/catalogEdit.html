@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{catalog.update}">Produkt bearbeiten</title>
+</head>
+<body>
+<div class="ui container center aligned">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{catalog.update}">Produkt bearbeiten</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/catalog}" th:text="#{order.back}">Zurück</a>
+        </div>
+    </nav>
+
+    <br/>
+
+    <form class="ui form" th:action="@{/catalog/edit/submit}" th:object="${catalogForm}" method="post">
+        <input type="hidden" th:field="*{productId}" required="required">
+        <div class="two fields">
+            <div class="field">
+                <label th:text="#{catalog.name}">Produktname</label>
+                <input type="text" th:field="*{name}" required="required" maxlength="40">
+                <div class="ui negative message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                    <p>Der Produktname darf nicht leer sein!</p>
+                </div>
+            </div>
+            <div class="field">
+                <label th:text="#{catalog.price}">Preis pro Stück</label>
+                <div class="right labeled ui input">
+                    <div class="ui right labeled input">
+                        <input type="number" th:field="*{price}" required="required" min="0.01" max="100000.00"
+                               step="0.01">
+                        <div class="ui label">€</div>
+                    </div>
+                </div>
+                <div class="ui negative message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+                    <p>Der Preis darf nicht leer sein!</p>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <button class="ui button" th:text="#{catalog.submit}">Aktualisieren</button>
+    </form>
+</div>
+</body>
+</html>

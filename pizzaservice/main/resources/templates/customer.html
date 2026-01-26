@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{customer.title}">Kunden</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{customer.title}">Kunden</h1>
+        </div>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui two column stackable center aligned page grid">
+        <div class="two column wide ui vertical menu">
+            <h2 class="ui header">
+                <img class="ui image" th:src="@{/resources/img/customer.png}"><br/>
+                <div class="content">
+                    <a class="positive ui button" th:href="@{/customerRegister}" th:text="#{customer.new}">
+                        Kunden registrieren
+                    </a>
+                </div>
+            </h2>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <table class="center aligned ui celled table">
+        <thead>
+        <th colspan="7">
+            <h2 th:text="#{customer.title}">Kunden</h2>
+        </th>
+        <tr>
+            <th th:text="#{customer.firstName}">Vorname</th>
+            <th th:text="#{customer.lastName}">Nachname</th>
+            <th th:text="#{customer.address}">Adresse</th>
+            <th th:text="#{customer.telephoneNumber}">Tel</th>
+            <th th:text="#{customer.currentTAN}">next TAN</th>
+            <th th:text="#{customer.edit}">Bearbeiten</th>
+            <th th:text="#{customer.return}">Essgarnituren Zurückgeben</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each=" customer : ${customerList}">
+            <td th:text="${customer.userAccount.firstname}">NyanCat</td>
+            <td th:text="${customer.userAccount.lastname}">NyanCat</td>
+            <td th:text="${customer.address}">Time Square 1</td>
+            <td th:text="${customer.telephoneNumber}">2222222</td>
+            <td th:text="${customer.getTan()}">123456</td>
+
+            <td>
+                <form method="post" class="button"
+                      th:action="@{/customerUpdate/{customer}(customer=${customer.getId()})}"
+                      th:value="${customer}">
+                    <button class="ui button" th:text="#{customer.edit}"/>
+                </form>
+            </td>
+
+            <td>
+                <form method="post" class="button"
+                      th:action="@{/customer/return/{customer}(customer=${customer.getId()})}"
+                      th:value="${customer}">
+                    <button class="ui button" th:text="#{customer.return.submit}"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

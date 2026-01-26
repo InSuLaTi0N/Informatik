@@ -1,0 +1,1552 @@
+= Test-Plan
+:toc: macro
+:toc-title:
+
+Dieser Testplan stellt eine vereinfachte Version der IEEE 829-1998 Vorlage dar.
+
+[discrete]
+== Inhaltsverzeichnis
+
+toc::[]
+
+== 1. Einführung
+Dieser Test-Plan soll sicherstellen, dass alle Komponenten, die im Rahmen des Projekts "Papa Pizza"
+erstellt werden, bei Fertigstellung voll funktionsfähig sind und den Erwartungen des Kunden
+entsprechen. Dafür werden Integrations- und Unit-Tests erstellt und
+ausgewertet.
+
+== 2. Aufbau der Testbezeichner
+Die Testbezeichner beginnen alle entweder mit dem Präfix *U* für Unit-Test oder dem Präfix
+*I* für Integrationstest. Anschließend folgen drei Ziffern, bei denen die erste jeweils für
+eine Komponente steht. Dabei steht *1* für Customer, *2* für Employee, *3* für MyOrder, *4* für
+Catalog und *5* für Branch. Die übrigen zwei Ziffern werden zur Unterscheidung der
+einzelnen Tests für die jeweilige Komponente eingesetzt.
+
+== 3. Testgegenstände
+* Customer
+* Employee
+* Order
+* Catalog
+* Branch
+
+== 4. Zu testende Funktionalitäten
+=== 4.1 Customer
+* Customer hinzufügen/bearbeiten/löschen
+* Ausgabe der Customer
+* Fehlermeldung bei falschen Eingaben oder invaliden Aktionen, wie Accounts doppelt vergeben
+* TAN/Token-System
+
+=== 4.2 Employee
+* Employee hinzufügen/bearbeiten/löschen
+* Ausgabe der Employees
+* Fehlermeldung bei falschen Eingaben oder invaliden Aktionen, wie Accounts doppelt vergeben
+* Besonderheiten im Verhalten der 'ADMIN'-Rolle
+
+=== 4.3 Order
+* MyOrder erstellen
+* Produkte zu einer MyOrder hinzufügen
+* Status von MyOrder/OrderLine ändern
+* MyOrder/OrderLines nach Status anzeigen
+
+=== 4.4 Catalog
+* Produkte bearbeiten/hinzufügen/löschen
+* Fehlermeldung bei falschen Eingaben
+* Ausgabe von Produkten aus dem Catalog
+
+=== 4.5 Branch
+* Korrektheit der automatisch erstellten AccountancyEntrys
+* Ausgabe der Abrechnung
+
+== 5. Nicht zu testende Funktionalitäten
+Alle Funktionalitäten, die aus Spring oder Salespoint übernommen werden, müssen nicht
+getestet werden, da davon auszugehen ist, dass diese bereits ausreichenden Test unterzogen
+wurden. Allerdings sollten sie in die Tests mit einbezogen werden, um ein fehlerfreies
+Zusammenspiel sicherzustellen.
+
+== 6. Herangehensweise
+Es werden möglichst viele Funktionalitäten mittels JUnit getestet. Zuerst werden
+einzelne Funktionen getestet und anschließend immer komplexere und größere
+funktionale Einheiten. Hier kommen Integrationstest hinzu. Das Bottom-Up Prinzip
+dient beim gesamten Prozess als Leitlinie.
+
+== 7. Umgebungsvoraussetzungen
+Um die Tests durchzuführen, wird ein Computer benötigt, der keine besonderen Kriterien
+erfüllen muss aber dem heutigen Stand der Technik entsprechen sollte. Ferner werden
+Eingabemöglichkeiten benötigt. Eingaben können sowohl mit Touchscreen als auch mit Maus und Tastatur
+erfolgen. Eine Internetverbindung ist wünschenswert aber nicht zwingend erforderlich.
+Alle für die Tests erforderlichen Daten, sowie die Tests selbst, befinden sich im Repository des
+Projekts, welches über das Internet oder lokal über einen Datenträger zur Verfügung gestellt werden
+kann.
+
+Zum Ausführen der Tests wird Java mindestens in der Version 11 benötigt. Eine dazu passende
+IDE (wie vorzugswiese IntelliJ, anderenfalls Eclipse, VS Code, etc) ist wünschenswert.
+
+Zum Testen der ausgeführten Anwendung wird einer der folgenden Browser benötigt:
+
+* Firefox 4.0
+* Internet Explorer / Edge 10.0
+* Chrome 4.0
+
+== 8. Testfälle und Verantwortlichkeit
+
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe| Ansprechpartner
+
+
+//Customer Tests
+|U101 |Customer Konstruktor Test | a|
+* telephoneNumber = "56345674574" +
+* tan = 34 +
+* street = "Münchner Str." +
+* city = "Dresden" +
+* houseNumber = 1 +
+* plz = "01187"
+
+a|
+* customer.telephoneNumber = "56345674574" +
+* customer.tan = 34 +
+* customer.street = "Münchner Str." +
+* customer.city = "Dresden" +
+* customer.houseNumber = 1 +
+* customer.plz = "01187"
+| Ludwig
+
+|U102 |Customer Setter Test | a|
+* customer aus UU101 +
+* telephoneNumber = "fg4gf45g" +
+* street = "Nürnberger Platz" +
+* city = "Dresden" +
+* houseNumber = 15 +
+* plz = "1189"
+
+a|
+* customer.tan = 34 +
+* customer.telephoneNumber = "fg4gf45g" +
+* customer.street = "Nürnberger Platz" +
+* customer.city = "Dresden" +
+* customer.houseNumber = 15 +
+* customer.plz = "1189"
+| Ludwig
+
+
+|U103|tanTokenSystemTest
+a| registrierter Customer mit: +
+
+* telephoneNumber = "56345674574" +
+* int tan = 123456
+a|
+* wrongTan = 1 +
+* tan +
+* wrongToken = 0 +
+* token = customer.tanValidation(tan)
+
+a|
+* 0 = customer.tanValidation(1)
+* 0 != customer.tanValidation(1)
+* 0 = customer.tokenValidation(wrongToken)
+* 0 != customer.tokenValidation(customer.tanValidation(tan))
+
+| Ludwig
+
+//CustomerManagementTest
+
+|U104|checkIfCustomerIsAdded|Customer existiert nicht im System a| valider Customer mit: +
+
+* firstName = "Test"
+* lastName = "Customer 1"
+* street = "Test Street"
+* houseNumber = "91"
+* plz="11111"
+* city="Test City"
+* telephoneNumber = "4933";
+| customer = customerManagement.findByID(customer.id())| Ludwig
+
+|U105|updateCustomerTest| Customer existiert im System| ein vom Customer verschiedener CustomerRegistrationForm| updatedCustomer = customerManagement.findByID(updatedCustomer.getId())| Ludwig
+
+
+|U106|findAndCheckCustomerTest a|Customer existiert im System mit: +
+
+* telephoneNumber = "49333333333"
+|telephoneNumber = "49333333333" a|
+* customer = customerManagement.findOne(telephoneNumber)
+* False = customerManagement.checkUser(telephoneNumber))
+* True = customerManagement.checkUser("abcdefgh")
+| Ludwig
+
+|U107|tanCreationTest|||Tans zwischen 10^5 und 10^6| Ludwig
+
+
+|U108|diningSetLogicTest|Customer existiert im System a|
+
+* keine Eingabe
+* customerManagement.addDiningSet(customer,2)
+* customerManagement.deleteDiningSets(customer,3)
+
+a|
+
+* True = customer.getDiningSetList().isEmpty()
+* False= customer.getDiningSetList().isEmpty()
+* 2 = deleteDiningSets(customer,3)
+* True = customer.getDiningSetList().isEmpty()
+
+| Ludwig
+
+//CustomerControllerTest
+
+|U109|customerManagerTest|User ist Admin|
+get an "/customer"
+a|
+Expected Outcome: +
+
+* status().isOk())
+* view().name("customer"))
+* model().attributeExists("customerList")
+|Friedemann
+
+
+|U110|customerUpdateTest|User ist Admin a|
+post an "/customerUpdate/{customerId}"
+
+* * customerId = customer.id
+* firstName = "Test"
+* lastName = "Customer 1"
+* street = "Test Street"
+* houseNumber = "91"
+* plz="11111"
+* city="Test City"
+* telephoneNumber = "4933";
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("customerUpdate")
+* model().attributeExists("customer", "customerRegistrationForm")
+
+|Friedemann
+
+|U111|updateCustomerTest|User ist Admin a|
+post an "/customer/updateCustomer/{customerId}"
+
+* customerId = customer.id
+* firstName = "Test"
+* lastName = "Customer 1"
+* street = "Test Street"
+* houseNumber = "91"
+* plz="11111"
+* city="Test Citys"
+* telephoneNumber = "4933"
+
+a|Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/customer"))
+|Friedemann
+
+|U112|customerRegisterTest|User ist Admin a|
+get an "/customerRegister"
+
+* customerId = customer.id
+* firstName = "Test"
+* lastName = "Customer 1"
+* street = "Test Street"
+* houseNumber = "91"
+* plz="11111"
+* city="Test City 2"
+* telephoneNumber = "4933"
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("customerRegister")
+* model().attributeExists("customerRegistrationForm")
+|Friedemann
+
+|U113|registerNewCustomerAlreadyExistsTest a|
+* User ist Admin
+* Customer mit denselben Attributen wie in der Eingabe existiert im System
+a|
+post an "/customer/customerRegister"
+
+* customerId = customer.id
+* firstName = "Test"
+* lastName = "Customer 1"
+* street = "Test Street"
+* houseNumber = "91"
+* plz="11111"
+* city="Test City 2"
+* telephoneNumber = "4933"
+
+a|Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/customerRegister")
+* flash().attributeExists("customerRegistrationForm")
+|Friedemann
+
+|U114|registerNewCustomerSuccessTest|
+User ist Admin
+a|
+post an "/customer/customerRegister"
+
+* customerId = customer.id
+* firstName = "Test"
+* lastName = "Customer 1"
+* street = "Test Street"
+* houseNumber = "91"
+* plz="11111"
+* city="Test City 2"
+* telephoneNumber = "0300254"
+
+a|Expected Outcome: +
+
+* status().isOk())
+* view().name("customerWelcome")
+|Friedemann
+
+//EmployeeTest
+
+|U115|constructorTest| a|
+* salary = "1000 EUR"
+* weeklyHours = 40
+* street = "Alexander Platz"
+* city = "Berlin"
+* houseNumber = 1
+* plz = "10115"
+
+a|
+
+* employee.salary = "1000 EUR"
+* employee.weeklyHours = 40
+* employee.street = "Alexander Platz"
+* employee.city = "Berlin"
+* employee.houseNumber = 1
+* employee.plz = "10115"
+| Ludwig
+
+//EmployeeManagementTest
+
+|U201|addEmployeeTest|Employee existiert nicht im System a|
+Employee mit folgenden Attributen: +
+
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* username = "User3"
+
+* employeeRegistrationForm = new EmployeeRegistrationForm(lastName, firstName, password,
+confirmpassword, street, houseNumber, city, plz, salary, role, weeklyHours, username);
+
+* employee = employeeManagement.addEmployee(employeeRegistrationForm);
+
+|Employee = employeeManagement.findByID(employee.getId())| Ludwig
+
+|U202|updateEmployeeTest a|Employee existiert im System  mit folgenden Attributen: +
+
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* username = "User3"
+
+a|
+
+* firstName = "Test_updated";
+* lastName = "Employee1_updated";
+* password = "Passwort_updated";
+* confirmpassword = "Passwort_updated";
+* street = "Alexander Platz_updated";
+* houseNumber = "1";
+* city = "Berlin_updated";
+* plz = "10115";
+* salary = "1500";
+* weeklyHours = "40";
+* role = "EMPLOYEE";
+* username = "User4";
+
+* updatedemployeeRegistrationForm = new EmployeeRegistrationForm(lastName, firstName,
+password, confirmpassword, street, houseNumber, city, plz, salary, role, weeklyHours, username);
+
+* employee = employeeManagement.updateEmployee(employee, updatedEmployeeRegistrationForm);
+
+|
+employee = employeeManagement.findByID(employee.getId())
+|Ludwig
+
+|U203|addEmployeeWithNullTest a|
+
+a|
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = null
+* city = "Berlin"
+* plz = "01186"
+* salary = null
+* weeklyHours = null
+* role = "EMPLOYEE"
+* username = "User5"
+
+* employeeRegistrationForm = new EmployeeRegistrationForm(lastName, firstName,
+password, confirmpassword, street, houseNumber, city, plz, salary, role, weeklyHours, username);
+
+* employee = employeeManagement.addEmployee(employeeRegistrationForm);
+|
+employee = employeeManagement.findByID(employee.getId())
+|Ludwig
+
+|U204|employeeRoleTest| a|
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = null
+* city = "Berlin"
+* plz = null
+* salary = null
+* weeklyHours = null
+* role = "EMPLOYEE"
+* username = "User5"
+
+* employeeRegistrationForm = new EmployeeRegistrationForm(lastName, firstName,
+password, confirmpassword, street, houseNumber, city, plz, salary, role, weeklyHours, username);
+
+* employee = employeeManagement.addEmployee(employeeRegistrationForm);
+|
+"EMPLOYEE" = employee.getRole()
+|Ludwig
+
+//EmployeeControllerTest
+
+|U205|employeeTest|
+User ist Admin
+|get an "/employee"
+a|
+Expected Outcome: +
+
+* view().name("employee")
+* model().attributeExists("employeeList")
+|Friedemann
+
+
+|U206|employeeAddTest|
+User ist Admin
+|
+get an "/employeeAdd"
+a|
+Expected Outcome: +
+
+view().name("employeeAdd")
+|
+
+|U207|registerNewEmployeeNameExistsTest|
+User ist Admin
+a|
+post an "/employeeAdd"
+
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* userName = "Employee2"
+
+a|
+Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/employeeAdd")
+* flash().attributeExists("employeeRegistrationForm")
+| Friedemann
+
+
+|U208|registerNewEmployeeNoPasswordMatchTest|
+User ist Admin a|
+post an "/employeeAdd"
+
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort123"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* userName = "Test Employee1"
+
+a| Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/employeeAdd")
+* flash().attributeExists("employeeRegistrationForm")
+|Friedemann
+
+|U209|registerNewEmployeeWrongRoleTest|User ist Admin a|
+post an "/employeeAdd"
+
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort123"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEEMASTER"
+* userName = "Test Employee1"
+
+a|Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/employeeAdd")
+* flash().attributeExists("employeeRegistrationForm")
+
+|Friedemann
+
+|U210|registerNewEmployeeSuccessTest| User ist Admin
+a|
+post an "/employeeAdd"
+
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort123"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* userName = "Test Employee1x"
+
+a|Expected Outcome: +
+
+* status().isOk())
+* view().name("redirect:/employee")
+|Friedemann
+
+|U211|employeeUpdateTest|User ist Admin a|
+post an "/employeeManagerUpdateEmployee/{employeeId}"
+
+* employeeId = employee.id
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort123"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* userName = "Test Employee1"
+
+a|Expected Outcome: +
+
+* status().isOk())
+* view().name("employeeUpdate")
+* model().attributeExists("employeeRegistrationForm")
+| Friedemann
+
+|U212|updateEmployeeTest|User ist Admin a|
+post an "/employeeUpdate/{employeeId}"
+
+* employeeId = employee.id
+* firstName = "Test"
+* lastName = "Employee1"
+* password = "Passwort123"
+* confirmpassword = "Passwort"
+* street = "Alexander Platz"
+* houseNumber = "1"
+* city = "Berlin"
+* plz = "10115"
+* salary = "1500"
+* weeklyHours = "40"
+* role = "EMPLOYEE"
+* userName = "Test Employee1"
+
+a|Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/employee")
+|Friedemann
+
+
+|U213|deleteEmployeeTest|User ist Admin a|
+post an "/employeeManagerDeleteEmployee/{employeeId}"
+
+* employeeId = employee.id
+
+a|Expected Outcome: +
+
+* status().isOk())
+* view().name("employee")
+* model().attributeExists("employeeList")
+|Friedemann
+
+//MyOrderTest
+
+
+|U301|constructorTest| a|
+* myOrder1 = new MyOrder(userAccount, "test") +
+* myOrder2 = new MyOrder()
+
+a|
+
+* False = myOrder1.containsPizza()
+* 0 = myOrder1.getCurrentOrderLineInt()
+* null != myOrder2
+|Andrej
+
+|U302|addressTest| a|
+* myOrder = new MyOrder(userAccount, "test")
+* myOrder.setAddress("Other test")
+
+a|
+
+* "test" = myOrder.getAddress()
+* "Other test" = getAddress()
+|Andrej
+
+|U303|customerTokenTest| a|
+* myOrder = new MyOrder(userAccount, "test")
+* long newCustomerToken = 123456
+* myOrder.setCustomerToken(newCustomerToken)
+
+a|
+
+* myOrder.getCustomerToken() == 0
+* myOrder.getCustomerToken() == newCustomerToken
+|Andrej
+
+|U304|containsPizzaTest| a|
+
+* myOrder = new MyOrder(userAccount, "test");
+* pizza = new Pizza();
+* myOrder.addOrderLine(pizza, Quantity.of(1))
+* myOrder.setContainsPizza(true)
+|
+True = myOrder.containsPizza()
+|Andrej
+
+|U305|pickUpTest| a|
+* myOrder = new MyOrder(userAccount, "test")
+* myOrder.setAddress("Selbstabholung")
+
+a|
+
+* False != myOrder.isPickUp()
+* True = myOrder.isPickUp()
+|Andrej
+
+|U306|customerNameTest| a|
+* testUserAccount = userAccount.setFirstname("Andrej").setLastname("Bereza")
+* myOrder = new MyOrder(testUserAccount, "test")
+|
+"Andrej Bereza"= myOrder.getCustomerName()
+| Andrej
+
+|U307|mapTest| a|
+
+* myOrder = new MyOrder(userAccount, "test")
+* product = new Product("Salat", Money.of(10, EURO))
+* product.addCategory(new Category().salad);
+* amount = 3
+
+a|
+
+* myOrder.getOrderLineStateMap() = expectedOrderLineStateMap
+* myOrder.getOrderLineStringMap() = expectedOrderLineStringMap
+* myOrder.getChargeLineStringMap() = expectedChargeLineStringMap
+|Andrej
+
+|U308|orderStringTest| a|
+* myOrder = new MyOrder(userAccount, "test")
+* product = new Product("Salat", Money.of(10, EURO))
+* product.addCategory(new Category().salad)
+* int amount = 3
+
+* String expectedOrderString = product.getName() +
+", Anzahl: " + amount + "\n" + "Status: " + OrderLineState.DONE.name() + "\n\n" +
+chargeLine.getDescription() + "\n\n";
+
+|
+myOrder.getOrderString() = expectedOrderString
+|Andrej
+
+|U309|orderLineIntMapTest| a|
+    myOrder = new MyOrder(userAccount, "test")
+    product = new Product("Salat", Money.of(10, EURO))
+    product.addCategory(new Category().salad)
+    int amount = 3
+    orderLine = myOrder.addOrderLine(product, Quantity.of(amount))
+
+a|
+
+* myOrder.getOrderLineInt(orderLine) == 0
+* myOrder.getOrderLine(0).equals(orderLine)
+|Andrej
+
+//OrderManagerTest
+
+|U310|ovenCountTest| a|
+* keine Eingabe
+* orderManager.setOvenCount(4);
+
+a|
+
+* orderManager.getOvenCount() == 2
+* orderManager.getOvenCount() == 4
+|Andrej
+
+|U311|repositoryTest| a|
+    userAccount = customerManagement.findOne("1234").getUserAccount();
+    myOrder = new MyOrder(userAccount, "test");
+    orderManager.save(myOrder);
+    Exception exception1 = assertThrows(NoSuchElementException.class, () -> {
+			orderManager.getOpenOrder("0");
+		});
+    orderManager.delete(myOrder);
+		Exception exception2 = assertThrows(NoSuchElementException.class, () -> {
+			orderManager.getOpenOrder(myOrder.getId().toString());
+		});
+
+a|
+
+* assertThat(orderManager.getOpenOrder(myOrder.getId().toString()).equals(myOrder));
+* assertThat(exception1.getMessage().equals("No open Order with the given OrderId was found!"));
+|Andrej
+
+|U312|orderLogicTest| a|
+
+* ingredient1 = new Product("Käse", Money.of(1.30, EURO)) +
+ingredient1.addCategory(new Category().ingredient);
+* ingredient2 = new Product("Salami", Money.of(3.45, EURO)) +
+ingredient2.addCategory(new Category().ingredient)
+* drink = new Product("Coca-Cola", Money.of(1.30, EURO))
+drink.addCategory(new Category().drink)
+* pizza = new Pizza()
+	pizza.addIngredient(ingredient1, 2)
+	pizza.addIngredient(ingredient2, 4)
+* myOrder = new MyOrder(userAccount, "test1")
+
+a|
+*  False = orderManager.getOrders(OrderStatus.OPEN).isEmpty() +
+
+    myOrder = orderManager.addPizza(myOrder.getId().toString(), pizza)
+
+* True = (myOrder.containsPizza() +
+* True =  myOrder.checkOrderLineState(myOrder.getOrderLine(0), OrderLineState.IN_PREPARATION) +
+
+    myOrder = orderManager.addProduct(myOrder.getId().toString(),drink, 1)
+
+* myOrder.getOrderLineStateMap().get(myOrder.getOrderLine(1)) = +
+(drink.getName() + ", Anzahl: " + 1 + "\n" + "Status: " + OrderLineState.DONE.name() + "\n\n")
+
+    myOrder = orderManager.addProduct(myOrder.getId().toString(),drink, 1)
+
+* assertThat(myOrder.getOrderLineStateMap().get(myOrder.getOrderLine(1)).equals(
+        drink.getName() + ", Anzahl: " + 2 + "\n" + "Status: " + OrderLineState.DONE.name() + "\n\n"))
+
+    myOrder = orderManager.addDiningSet(myOrder.getId().toString(), 2)
+
+* myOrder.getOrderLineStateMap().size() == 1 +
+* myOrder.getOrderLineStringMap().size() == 1 +
+* myOrder.getChargeLineStringMap().size() == 1 +
+
+    Map<MyOrder, List<OrderLine>> unpreparedPizzas = orderManager.getUnpreparedPizzas()
+
+* unpreparedPizzas.size() == 1 +
+*unpreparedPizzas.get(myOrder) = (new OrderLine[]{myOrder.getOrderLine(0)}) +
+
+    orderManager.preparePizza(myOrder.getId().toString(), 0)
+
+* True = myOrder.checkOrderLineState(myOrder.getOrderLine(0), OrderLineState.PREPARED)
+
+    unpreparedPizzas = orderManager.getUnpreparedPizzas() +
+
+* unpreparedPizzas.size() == 0
+
+    orderManager.deliverOrder(myOrder.getId().toString());
+
+* True = myOrder.checkOrderLineState(myOrder.getOrderLine(0), OrderLineState.IN_DELIVERY)
+* True = orderManager.getOrders(OrderLineState.IN_DELIVERY).iterator().hasNext()
+* False = orderManager.getOrders(OrderStatus.OPEN).isEmpty()
+* True = orderManager.getOrders(OrderStatus.COMPLETED).isEmpty()
+
+    orderManager.completeOrder(myOrder.getId().toString());
+
+* True = myOrder.checkOrderLineState(myOrder.getOrderLine(0), OrderLineState.DELIVERED)
+* True = orderManager.getOrders(OrderLineState.DELIVERED).iterator().hasNext()
+* True = orderManager.getOrders(OrderStatus.OPEN).isEmpty()
+* False = orderManager.getOrders(OrderStatus.COMPLETED).isEmpty()
+
+|Andrej
+
+|U313|discountTest| a|
+* userAccount = customerManagement.findOne("1234").getUserAccount();
+* ingredient1 = new Product("Käse", Money.of(1.30, EURO));
+ ingredient1.addCategory(new Category().ingredient);
+* ingredient2 = new Product("Salami", Money.of(3.45, EURO));
+ ingredient2.addCategory(new Category().ingredient);
+
+* pizza = new Pizza();
+pizza.addIngredient(ingredient1, 2);
+pizza.addIngredient(ingredient2, 4);
+pizza.setPrice(pizza.getTotal());
+
+* myOrder = new MyOrder(userAccount, "test1");
+
+a|
+    myOrder = orderManager.addPizza(myOrder.getId().toString(), pizza);
+
+* myOrder.getTotal() = (Money.of(4.99, EURO).
+    add(ingredient1.getPrice()).add(ingredient2.getPrice()))
+
+    orderManager.discount(myOrder.getId().toString());
+
+* myOrder.getTotal() = (pizza.getTotal())
+
+    myOrder.setAddress("Selbstabholung");
+    orderManager.save(myOrder);
+    orderManager.discount(myOrder.getId().toString());
+
+* myOrder.getTotal() = (pizza.getTotal().
+        add(pizza.getTotal().negate().divide(10).with(Monetary.getDefaultRounding())))
+
+|Andrej
+
+|U314|freeDrinkTest| a|
+* userAccount = customerManagement.findOne("1234").getUserAccount()
+
+
+* ingredient1 = new Product("Käse", Money.of(1.30, EURO)) +
+ingredient1.addCategory(new Category().ingredient)
+* Product ingredient2 = new Product("Salami", Money.of(3.45, EURO)) +
+ingredient2.addCategory(new Category().ingredient)
+
+a|
+* False = orderManager.freeDrink(myOrder.getId().toString())
+* True = orderManager.freeDrink(myOrder.getId().toString())
+|Andrej
+
+|U315|returnDiningSetsTest| a|
+* customer = customerManagement.findOne("1234")
+* userAccount = customer.getUserAccount()
+* myOrder = new MyOrder(userAccount, "test1");
+
+* ingredient1 = new Product("Käse", Money.of(1.30, EURO)) +
+ingredient1.addCategory(new Category().ingredient)
+* ingredient2 = new Product("Salami", Money.of(3.45, EURO)) +
+ingredient2.addCategory(new Category().ingredient)
+
+a|
+    myOrder = orderManager.addDiningSet(myOrder.getId().toString(), 4)
+
+* myOrder.getTotal() = pizza.getTotal().add(Money.of(15, EURO).multiply(4))
+
+    orderManager.returnDiningSets(customer, 2);
+
+* myOrder.getTotal() = Money.of(15, EURO).multiply(2)
+
+    orderManager.returnDiningSets(customer, 2);
+
+* myOrder.getTotal() = Money.of(15, EURO).multiply(0)
+
+|Andrej
+
+|U316|deliveryTimeTest| a|
+* userAccount = customerManagement.findOne("1234").getUserAccount()
+* ingredient1 = new Product("Käse", Money.of(1.30, EURO)) +
+ingredient1.addCategory(new Category().ingredient)
+* ingredient2 = new Product("Salami", Money.of(3.45, EURO)) +
+ingredient2.addCategory(new Category().ingredient)
+* expectedTime =  estimatedTime.plusMinutes((long) newMinute - oldMinute + 15).truncatedTo(MINUTES)
+|
+    orderManager.getDeliveryTime(myOrder.getId().toString()) = expectedTime
+|Andrej
+
+|U317|deleteEmptyOrdersTest| a|
+
+* userAccount = customerManagement.findOne("1234").getUserAccount();
+* myEmptyOrder = new MyOrder(userAccount, "test1");
+
+a|
+* False = orderManager.getOrders(OrderStatus.OPEN).isEmpty()
+
+    orderManager.deleteEmptyOrders();
+
+* True = orderManager.getOrders(OrderStatus.OPEN).isEmpty()
+
+|Andrej
+
+|U318|orderLandingTest|User ist Employee a|
+    get("/order")
+
+a| Expected Outcome: +
+
+* status().isOk())
+* view().name("order"))
+* model().attributeExists("orders", "timeFormatter"))
+
+| Serafina
+
+|U319|orderNewTest|User ist Employee a|
+    get("/order/new")
+
+a| Expected Outcome: +
+
+* status().isOk())
+* view().name("orderNew"))
+* model().attributeExists("authenticationForm")
+|Serafina
+
+|U320|orderAuthenticateSuccessfulTest|User ist Employee a|
+    post("/order/new/authenticate")
+
+* telephoneNumber = "999999"
+* tan = 123456
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("orderAddress")
+* model().attributeExists("telephoneNumber", "customerToken")
+|Serafina
+
+
+|U321|orderAuthenticateWrongTelephoneNumberTest|User ist Employee a|
+    post("/order/new/authenticate")
+
+* telephoneNumber = "978532213"
+* tan = "123456"
+
+a|Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/order/new")
+* flash().attributeExists("authenticationForm")
+
+| Serafina
+
+|U322|orderItemsDefaultAddressTest|User ist Employee a|
+* telephoneNumber = customer.getTelephoneNumber()
+* customerToken = Long.toString(customer.tanValidation(123456))
+* address = "defaultAddress"
+* otherAddress = ""
+* street = ""
+* houseNumber = "1"
+* city = ""
+* plz = ""
+
+a|Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("currentPizza", "ingredients", "salads", "drinks", "order", "telephoneNumber")
+| Serafina
+
+|U324|orderItemsPickUpTest|User ist Employee a|
+    post("/order/new/items")
+
+* telephoneNumber = "999999"
+* customerToken = Long.toString(customer.tanValidation(123456))
+* address = "pickUp"
+* otherAddress = "gets ignored"
+* street = ""
+* houseNumber = "1"
+* city = ""
+* plz = ""
+
+a|Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("currentPizza", "ingredients", "salads", "drinks", "order", "telephoneNumber")
+|Serafina
+
+
+|U325|orderAddIngredientTest|User ist Employee a|
+    post("/order/new/items/addIngredient")
+
+* telephoneNumber = "999999"
+* productId = ingredient.getId().toString()
+* orderId = myOrder.getId().toString()
+* amount = "2"
+
+a|Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+|Serafina
+
+
+|U326|orderAddPizzaTest|User ist Employee a|
+    post("/order/new/items/addPizza")
+
+* telephoneNumber = customer.getTelephoneNumber()
+* "orderId" = myOrder.getId().toString()
+
+a|Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+|Serafina
+
+
+|U327|orderAddTest|User ist Employee a|
+    post("/order/new/items/add")
+
+* telephoneNumber = customer.getTelephoneNumber()
+* productId = salad.getId().toString()
+* orderId = myOrder.getId().toString()
+* amount = "2"
+
+a|Expected Outcome: +
+
+* status().isOk())
+* view().name("orderItems"))
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+|Serafina
+
+
+|U328|orderAddDiningSetTest|User ist Employee a|
+1.
+
+    post("/order/new/items/addPizza")
+
+* productId = salad.getId().toString()
+* orderId = myOrder.getId().toString()
+
+2.
+
+    post("/order/new/items/addDiningSet"
+
+* productId = salad.getId().toString()
+* orderId = myOrder.getId().toString()
+* amount = "2"
+
+a| Expected Outcome: +
+
+1.
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+
+2.
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+|Serafina
+
+|U329|orderFinishErrorTest|User ist Employee a|
+* myOrder = new MyOrder(customer.getUserAccount(), "test address")
+
+    myOrder.setCustomerToken(3123112)
+
+    post("/order/new/items/done")
+
+* productId = salad.getId().toString()
+* orderId = myOrder.getId().toString()
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("error")
+* model().attributeExists("error")
+|Serafina
+
+|U330|orderFinishFreeDrinkTest|User ist Employee a|
+    orderManager.addProduct(myOrder.getId().toString(), salad, 100)
+
+    post("/order/new/items/done")
+
+* productId = salad.getId().toString()
+* orderId = myOrder.getId().toString()
+
+a| Expected Outcome: +
+
+* status().isOk())
+* view().name("orderFreeDrink")
+* model().attributeExists("order", "drinks", "telephoneNumber", "newTan")
+|Serafina
+
+|U331|orderFinishNoFreeDrinkTest|User ist Employee a|
+    post("/order/new/items/done")
+
+* productId = salad.getId().toString()
+* orderId = myOrder.getId().toString()
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("orderComplete")
+* model().attributeExists("order", "date", "time", "customer", "deliveryTime", "newTan")
+|Serafina
+
+|U332|orderFreeDrinkTest|User ist Employee a|
+    post("/order/new/items/freeDrink/done")
+
+* productId = drink.getId().toString()
+* orderId = myOrder.getId().toString()
+* telephoneNumber = customer.getTelephoneNumber()
+* newTan = Integer.toString(customer.tokenValidation(myOrder.getCustomerToken()))
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("orderComplete")
+* model().attributeExists("order", "date", "time", "customer", "deliveryTime", "newTan")
+|Serafina
+
+|U333|statePizzaTest|User ist Employee a|
+    get("/order/view/inPreparation")
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("orderPizza")
+* model().attributeExists("timeFormatter", "unpreparedPizzas")
+|Serafina
+
+
+|U334|preparePizzaTest|User ist Employee a|
+1.
+
+    post("/order/new/items/addPizza")
+
+* telephoneNumber = customer.getTelephoneNumber()
+* orderId = myOrder.getId().toString()
+
+2.
+
+    post("/order/view/inPreparation/submit")
+
+* orderId = myOrder.getId().toString()
+* orderLineInt = "0"
+
+a|
+. Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+
+. Expected Outcome: +
+
+* status().isFound())
+* view().name("redirect:/order/view/inPreparation")
+
+|Serafina
+
+
+|U335|stateDoneTest|User ist Employee a|
+    get("/order/view/done")
+
+a| Expected Outcome: +
+
+* status().isOk())
+* view().name("orderDone")
+* model().attributeExists("timeFormatter", "orders")
+|Serafina
+
+
+|U336|deliverTest|User ist Employee a|
+
+1.
+
+    post("/order/new/items/addPizza")
+
+* telephoneNumber = customer.getTelephoneNumber()
+* orderId = myOrder.getId().toString()
+
+2.
+
+    post("/order/view/done/submit")
+
+* orderId = myOrder.getId().toString()
+
+a|
+. Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+
+. Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/order/view/done")
+
+|Serafina
+
+
+|U336|statePickUpTest|User ist Employee a|
+    get("/order/view/pickUp")
+
+a| Expected Outcome: +
+
+* status().isOk())
+* view().name("orderPickUp")
+* model().attributeExists("timeFormatter", "orders")
+
+|Serafina
+
+
+|U337|pickUpTest|User ist Employee a|
+1.
+
+    post("/order/new/items/addPizza")
+
+* telephoneNumber = customer.getTelephoneNumber()
+* orderId = myOrder.getId().toString()
+
+2.
+
+    post("/order/view/pickUp/submit")
+
+* orderId = myOrder.getId().toString()
+
+a|
+. Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+
+. Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/order/view/pickUp")
+
+|Serafina
+
+
+|U338|stateInDeliveryTest|User ist Employee a|
+    get("/order/view/inDelivery")
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("orderInDelivery")
+* model().attributeExists("timeFormatter", "orders")
+
+|Serafina
+
+
+|U339|completeTest|User ist Employee a|
+1.
+
+    post("/order/new/items/addPizza")
+
+* telephoneNumber = customer.getTelephoneNumber()
+* orderId = myOrder.getId().toString()
+
+2.
+
+    post("/order/view/inDelivery/submit")
+
+
+* orderId = myOrder.getId().toString()
+
+a|
+. Expected Outcome: +
+
+* status().isOk()
+* view().name("orderItems")
+* model().attributeExists("order", "currentPizza", "ingredients", "salads", "drinks", "telephoneNumber")
+
+. Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/order/view/inDelivery")
+
+|Serafina
+
+
+|U340|ovenTest|User ist Employee a|
+    get("/oven")
+
+a| Expected Outcome: +
+
+* status().isOk()
+* view().name("oven")
+* model().attributeExists("orderManager")
+
+|Serafina
+
+
+|U341|setOvenTest|User ist Admin a|
+    post("/oven/done")
+
+* amount = "5"
+
+a| Expected Outcome: +
+
+* status().isFound()
+* view().name("redirect:/branch")
+
+|Serafina
+
+
+|U342|getProductTest|User ist Admin a|
+
+foundSalad = orderController.getProduct(salad.getId().toString());
+
+a|
+* foundSalad.getId().toString() = salad.getId().toString()
+
+|Andrej
+
+
+|U343|getProductExceptionTest|User ist Employee a|
+id = "asfsdg"
+a|
+
+    Assertions.assertThrows(NoSuchElementException.class, () -> orderController.getProduct(id))
+
+|Serafina
+
+
+
+
+//BranchControllerTest
+
+| U401 | accountancyTest | User ist Admin a|
+get an "/branch"
+
+a|
+
+* status().isOk()
+* view().name("branch")
+* model().attributeExists("invoice")
+|
+Friedemann|
+
+U402 |
+setAccountancyTest |
+User ist Admin a|
+post an "/branch"
+
+* start = LocalDate.now().plusWeeks(1).toString()
+* end = LocalDate.now().toString()
+
+a|
+
+* status().isOk()
+* view().name("branch")
+* model().attributeExists("invoice") |
+Friedemann |
+
+U403 | payrollTest | Accountancy is empty a|
+branchController.payroll() |
+accountancy.find(Interval.from(LocalDateTime.now()).to(LocalDateTime.now().plusMinutes(1))).isEmpty() is False |
+Friedemann |
+
+//InvoiceTest
+
+U404 | invoiceTest | Accountancy is empty a|
+* MonetaryAmount total = Money.of(1300, EURO)
+* accountancy.add(new AccountancyEntry(Money.of(0, EURO).negate(), "to 0 EURO"))
+* accountancy.add(new AccountancyEntry(total, "test"))
+* invoice = new Invoice(accountancy,LocalDate.now(),LocalDate.now().plusWeeks(1))
+
+a|
+
+* total.isEqualTo(invoice.getTotal())
+* accountancy is not null |
+Friedemann |
+
+//CatalogControllerTest
+
+U501 | catalogNotAdminTest | User ist Employee |
+get an "/catalog"
+|
+status().isForbidden()
+| Friedemann |
+
+U502 | catalogTest | User ist Admin |
+get an "/catalog"
+
+a|
+
+* status().isOk()
+* view().name("catalog")
+* model().attributeExists("current", "drinks", "ingredients", "salads") |
+Friedemann |
+
+U503 | catalogIngredientTest | User ist Admin a|
+post an "/catalog"
+
+* category = "ingredients"
+
+a|
+
+status().isOk()
+view().name("catalog")
+model().attribute("current", "drinks")
+model().attributeExists("current", "drinks") |
+Friedemann |
+
+U504 | catalogDrinkTest | User ist Admin a|
+post an "/catalog"
+
+* category = "drinks"
+
+a|
+
+* status().isOk()
+* view().name("catalog")
+* model().attribute("current", "ingredients")
+* model().attributeExists("current", "ingredients") |
+Friedemann |
+
+U505 | catalogSaladTest | User ist Admin a|
+post an "/catalog"
+
+* category = "salads"
+
+a|
+
+* status().isOk()
+* view().name("catalog")
+* model().attribute("current", "salads")
+* model().attributeExists("current", "salads") |
+Friedemann |
+
+U506 | catalogAddTest | User ist Admin |
+get an "/catalog/add"
+
+a|
+
+* status().isOk()
+* view().name("catalogAdd") |
+Friedemann |
+
+U507 | addToCatalogTest | User ist Admin a|
+post an "/catalog/add"
+
+* name = "New Product Name"
+* price = "54.25"
+* category = "salad"
+
+a|
+
+* status().isFound()
+* view().name("redirect:/catalog") |
+Friedemann |
+
+U508 | catalogEditTest | User ist Admin und ein Product im Catalog a|
+post an "/catalog/edit"
+
+* productId = product.getId().toString()
+* name = product.getName()
+* price = product.getPrice().toString()
+
+a|
+
+* status().isOk()
+* view().name("catalogEdit")
+* model().attributeExists("catalogForm") |
+Friedemann |
+
+U509 | editProductTest | User ist Admin und ein Product im Catalog a|
+post an "/catalog/edit/submit"
+
+* productId = product.getId().toString()
+* name = "Edited Product Name"
+* price = "15.49"
+
+a|
+
+* status().isFound()
+* view().name("redirect:/catalog") |
+Friedemann |
+
+U510 | deleteProductTest | User ist Admin und ein Product im Catalog a|
+post an "/catalog/delete"
+
+* productId = product.getId().toString()
+
+a|
+
+* status().isFound()
+* view().name("redirect:/catalog") |
+Friedemann
+|
+
+U511 | getProductTest | User ist Admin und ein Product im Catalog |
+Product foundProduct = catalogController.getProduct(product.getId().toString()) |
+foundProduct.getId().toString().equals(product.getId().toString())
+|
+Friedemann
+|
+
+U512 | getProductExceptionTest | User ist Admin |
+catalogController.getProduct("asfsdg") |
+NoSuchElementException |
+Friedemann |
+
+//PizzaTest
+
+U513 | PizzaLogicTest | a|
+    Pizza pizza = new Pizza();
+    Product ingredient = new Product("Käse",Money.of(10, EURO));
+    ingredient.addCategory(new Category().ingredient);
+    int amount = 1;
+    MonetaryAmount expectedTotal1 = Money.of(10, EURO);
+	MonetaryAmount expectedTotal2 = Money.of(20, EURO);
+	String expectedString1 = ingredient.getName() + ", Anzahl" + amount + "\n";
+	String expectedString2 = ingredient.getName() + ", Anzahl" + 2*amount + "\n";
+	List<String> expectedIngredientStrings1 = new ArrayList<>();
+	expectedIngredientStrings1.add(expectedString1);
+	List<String> expectedIngredientStrings2 = new ArrayList<>();
+	expectedIngredientStrings2.add(expectedString2);
+
+a|
+    pizza.addIngredient(ingredient, amount);
+    assertThat(pizza.getTotal().equals(expectedTotal1));
+    assertThat(pizza.getIngredientString().equals(expectedString1));
+    assertThat(pizza.getIngredientStrings().equals(expectedIngredientStrings1));
+    pizza.addIngredient(ingredient, amount);
+    assertThat(pizza.getTotal().equals(expectedTotal2));
+    assertThat(pizza.getIngredientString().equals(expectedString2));
+    assertThat(pizza.getIngredientStrings().equals(expectedIngredientStrings2)); |
+Friedemann
+
+|===

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{order.assemble}">Bestellung zusammenstellen</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{order.assemble}">Bestellung zusammenstellen</h1>
+        </div>
+    </header>
+    <nav>
+        <form class="ui secondary pointing menu" th:action="@{/order/new/cancel}" method="post">
+            <input type="hidden" name="orderId" th:value="${order.getId()}">
+            <button class="small negative ui button" th:text="#{order.cancel}">Cancel Order</button>
+        </form>
+    </nav>
+
+    <table class="center aligned ui celled table" th:if="${!order.orderString.isEmpty()}">
+        <thead>
+        <tr>
+            <th colspan="3">
+                <h2 th:text="#{order.current}">Aktuelle Bestellung</h2>
+            </th>
+        </tr>
+        <tr>
+            <th th:text="#{order.name}">Name</th>
+            <th th:text="#{order.quantity}">Menge</th>
+            <th th:text="#{order.price}">Preis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderLine : ${order.orderLineStateMap.keySet()}">
+            <td th:if="${orderLine.productName.contains('Pizza')}" th:text="${orderLine.productName.split('Status: ')[0]}"
+                style="white-space:pre-wrap; word-wrap:break-word"></td>
+            <td th:if="${!orderLine.productName.contains('Pizza')}" th:text="${orderLine.productName}"
+                style="white-space:pre-wrap; word-wrap:break-word"></td>
+            <td th:text="${orderLine.quantity}"></td>
+            <td th:text="${orderLine.price.number} + ' €'"></td>
+        </tr>
+        <tr th:each="chargeLine : ${order.chargeLineStringMap.keySet()}">
+            <td th:text="${chargeLine.description}"></td>
+            <td th:text="${1}"></td>
+            <td th:text="${chargeLine.price.number} + ' €'"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="2">
+                <h4 th:text="#{order.totalPrice}"></h4>
+            </th>
+            <th colspan="1">
+                <h4 th:text="${order.total.number} + ' €'"></h4>
+            </th>
+        </tr>
+        <div th:if="${order.containsPizza() && diningSetsLeft != 0}">
+            <tr>
+                <th colspan="3">
+                    <h2 th:text="#{order.addDiningSet}"></h2>
+                    <h4 th:text="#{order.diningSetAmount}"></h4>
+                    <form class="ui form" th:action="@{/order/new/items/addDiningSet}" method="post">
+                        <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                        <input type="hidden" name="orderId" th:value="${order.id}"/>
+                        <div class="field">
+                            <input type="number" name="amount" value="1" required="required" min="1" th:max="${diningSetsLeft}"/>
+                        </div>
+                        <button class="ui button" th:text="#{order.addDiningSet}">Essgarnitur Hinzufügen</button>
+                    </form>
+                </th>
+            </tr>
+        </div>
+        <div th:if="${diningSetsLeft == 0}">
+            <tr>
+                <th colspan="3">
+                    <h2 th:text="#{order.noDiningSetsLeft}"></h2>
+                </th>
+            </tr>
+        </div>
+        <tr>
+            <th colspan="3">
+                <form th:action="@{/order/new/items/done}" method="post">
+                    <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                    <input type="hidden" name="orderId" th:value="${order.id}"/>
+                    <button class="positive ui button" th:text="#{order.submit}">Fertig</button>
+                </form>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+    <table class="center aligned ui celled table">
+        <thead>
+        <tr>
+            <th colspan="3">
+                <h2 th:text="#{order.assemblePizza}">Pizza zusammenstellen</h2>
+            </th>
+        </tr>
+        <tr>
+            <th th:text="#{order.ingredient}">Zutat</th>
+            <th th:text="#{order.price}">Preis</th>
+            <th th:text="#{order.quantity}">Menge</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ingredient : ${ingredients}">
+            <form class="ui form" th:action="@{/order/new/items/addIngredient}" method="post">
+                <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                <input type="hidden" name="productId" th:value="${ingredient.id}"/>
+                <input type="hidden" name="orderId" th:value="${order.id}"/>
+                <td th:text="${ingredient.name}"></td>
+                <td th:text="${ingredient.price.number} + ' €'"></td>
+                <td>
+                    <div class="field">
+                        <input name="amount" type="number" value="1" required="required" min="1" max="10000"/>
+                    </div>
+                    <button class="ui button" th:text="#{order.add}">Hinzufügen</button>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+        <tfoot>
+        <div th:if="${!currentPizza.ingredientString.isEmpty()}">
+            <tr>
+                <th colspan="3" th:text="${currentPizza.ingredientString}"
+                    style="white-space:pre-wrap; word-wrap:break-word"></th>
+            </tr>
+            <tr>
+                <th colspan="3">
+                    <form th:action="@{/order/new/items/addPizza}" method="post">
+                        <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                        <input type="hidden" name="orderId" th:value="${order.id}"/>
+                        <button class="ui button" th:text="#{order.addPizza}">Pizza hinzufügen</button>
+                    </form>
+                </th>
+            </tr>
+        </div>
+        </tfoot>
+    </table>
+    <table class="center aligned ui celled table">
+        <thead>
+        <tr>
+            <th colspan="3">
+                <h2 th:text="#{order.drink}">Getränke</h2>
+            </th>
+        </tr>
+        <tr>
+            <th th:text="#{order.name}">Name</th>
+            <th th:text="#{order.price}">Preis</th>
+            <th th:text="#{order.quantity}">Menge</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="drink : ${drinks}">
+            <form class="ui form" th:action="@{/order/new/items/add}" method="post">
+                <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                <input type="hidden" name="productId" th:value="${drink.id}"/>
+                <input type="hidden" name="orderId" th:value="${order.id}"/>
+                <td th:text="${drink.name}"></td>
+                <td th:text="${drink.price.number} + ' €'"></td>
+                <td>
+                    <div class="field">
+                        <input name="amount" type="number" value="1" required="required" min="1" max="10000"/>
+                    </div>
+                    <button class="ui button" th:text="#{order.add}">Hinzufügen</button>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+    <table class="center aligned ui celled table">
+        <thead>
+        <tr>
+            <th colspan="3">
+                <h2 th:text="#{order.salad}">Salate</h2>
+            </th>
+        </tr>
+        <tr>
+            <th th:text="#{order.name}">Name</th>
+            <th th:text="#{order.price}">Preis</th>
+            <th th:text="#{order.quantity}">Menge</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="salad : ${salads}">
+            <form class="ui form" th:action="@{/order/new/items/add}" method="post">
+                <input type="hidden" name="telephoneNumber" th:value="${telephoneNumber}"/>
+                <input type="hidden" name="productId" th:value="${salad.id}"/>
+                <input type="hidden" name="orderId" th:value="${order.id}"/>
+                <td th:text="${salad.name}"></td>
+                <td th:text="${salad.price.number} + ' €'"></td>
+                <td>
+                    <div class="field">
+                        <input name="amount" type="number" value="1" required="required" min="1" max="10000"/>
+                    </div>
+                    <button class="ui button" th:text="#{order.add}">Hinzufügen</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{branch.title}">Filiale</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{branch.title}">Filiale</h1>
+        </div>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui two column stackable center aligned page grid">
+        <div class="two column wide ui vertical menu">
+            <h2 class="ui header">
+                <img class="ui image" th:src="@{/resources/img/oven.png}"><br/>
+                <div class="content">
+                    <a class="positive ui button" th:href="@{/oven}" th:text="#{branch.oven}"></a>
+                </div>
+            </h2>
+        </div>
+    </div>
+
+    <h2 th:text="#{branch.accounting}">Buchhaltung</h2>
+
+    <div class="ui form segment">
+        <form th:action="@{/branch}" th:object="${invoiceForm}" method="post">
+            <div class="equal width fields">
+                <div class="field">
+                    <label>Startdatum</label>
+                    <input type="date" th:field="*{start}" required="required" autofocus="autofocus">
+                </div>
+                <div class="field">
+                    <label>Enddatum</label>
+                    <input type="date" th:field="*{end}" required="required">
+                </div>
+            </div>
+            <div class="ui negative message" th:if="${#fields.hasErrors('start')}" th:errors="*{start}">
+                <p>Das Startdatum darf nicht hinter dem Enddatum liegen!</p>
+            </div>
+            <div class="ui negative message" th:if="${#fields.hasErrors('end')}" th:errors="*{end}">
+                <p>Das Enddatum darf nicht leer sein!</p>
+            </div>
+            <button class="ui button" th:text="#{branch.submit}">Anzeigen</button>
+        </form>
+    </div>
+
+    <div th:if="${!invoice.entries.isEmpty()}">
+        <table class="center aligned ui celled table">
+            <thead>
+            <tr>
+                <th colspan="2">
+                    <h2 th:text="'Bilanz vom ' + ${invoice.startDate.format(timeFormatter)} +
+                    ' bis zum ' + ${invoice.endDate.format(timeFormatter)}"></h2>
+                </th>
+            </tr>
+            <tr>
+                <th th:text="#{branch.entry}">Rechnung</th>
+                <th th:text="#{branch.value}">Betrag</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each="entry : ${invoice.entries}">
+                <td th:text="${entry.description}" style="white-space:pre-wrap; word-wrap:break-word"></td>
+                <td th:text="${{entry.value.number}} + ' €'"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <div class="ui segment center aligned">
+                            <h3 th:text="#{branch.total}">Summe</h3>
+                            <p th:text="${invoice.total.number} + ' €'"></p>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <h4 th:if="${invoice.entries.isEmpty()}" th:text="#{branch.noEntries}">
+        Es sind keine Einträge für den eingegebenen Zeitraum im System vorhanden.
+    </h4>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+= Protokoll Gruppe 36
+
+Treffen am 06.01.2021
+
+Ort:      Jitsi  +
+Beginn:   17:00 Uhr +
+Ende:     17:30 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+13.01.2021, 17:00 Uhr, Jitsi
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+. Website sieht gut aus
+. Muss-Kriterien alle außer "Passwort generieren" erfüllt
+
+* Bemerkung in Entwicklerdoku dazu erstellen
+
+. Crosstesting:
+
+* readme mit Anleitungen zu Prozessen auf der Website beilegen
+* .jar-Datei erstellen
+* Pflichtenheft beilegen
+
+. Kann-Kriterien sind on-top und müssen nicht unbedingt alle erfüllt werden

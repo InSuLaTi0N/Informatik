@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{order.error}">Fehler</title>
+</head>
+<body>
+<div class="center aligned ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{order.error}">Fehler</h1>
+        </div>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+    <div th:text="${error}"></div>
+</div>
+</body>
+</html>

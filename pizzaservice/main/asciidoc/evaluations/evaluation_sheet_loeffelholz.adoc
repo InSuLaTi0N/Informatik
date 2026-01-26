@@ -1,0 +1,40 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2020/21
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von:** Serafina Löffelholz
+
+**Gruppe:** 36
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+Ich habe meine Kenntnisse von HTML und Java erweitert und zudem das erste
+mal mit Frameworks wie Spring und SalesPoint gearbeitet. Ich habe nun
+einen viel besseren Eindruck wie man als Team eine größere Software
+entwirft und umsetzt. Von Datenbanken und persistenter Datenspeicherung
+habe ich nach wie vor wenig Ahnung da diese nie in meinen Aufgabenbereich viel.
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Ich fand die Zusammenarbeit in unserem Team sehr gut. Wir haben Probleme jeglicher Art gut
+bewältigt und es herrschte eine angenehme Atmosphäre. Die Arbeitsaufteilung war sicherlich
+nicht perfekt aber mindestens zufriedenstellend.
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+Es ist manchmal schwer einzuschätzen ob es Arbeit spart wenn man etwas aus einem Framework
+verwendet oder ob es mehr schafft. Je nachdem wie gut der verwendete Teil zum eigentlichen Projekt passt.
+Das Arbeiten wird angenehmer je erweiterbarer und flexibler ein Framework ist.
+
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Die Zusammenarbeit war durchweg angenehm und konstruktiv. Bei Problemen war sie uns stets eine große Hilfe
+und hat das Team positiv beeinflusst. Vor allem in der Analysephase nahm sie sich viel Zeit für uns.
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?

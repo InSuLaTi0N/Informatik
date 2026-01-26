@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{catalog.title}">Sortiment</title>
+</head>
+<body>
+<div class="ui container center aligned">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{catalog.title}">Sortiment</h1>
+        </div>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui two column stackable center aligned page grid">
+        <div class="two column wide ui vertical menu">
+            <h2 class="ui header">
+                <img class="ui image" th:src="@{/resources/img/product.png}"><br/>
+                <a class="positive ui button" th:href="@{/catalog/add}" th:text="#{catalog.add}"></a>
+            </h2>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <form class="ui form segment" th:action="@{/catalog}" method="post">
+        <div class="four inline fields">
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="category" value="all" th:checked="${current.equals('all')}">
+                    <label th:text="#{catalog.all}">All</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="category" value="ingredients" th:checked="${current.equals('ingredients')}">
+                    <label th:text="#{catalog.ingredient}">Ingredients</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="category" value="drinks" th:checked="${current.equals('drinks')}">
+                    <label th:text="#{catalog.drink}">Drinks</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="category" value="salads" th:checked="${current.equals('salads')}">
+                    <label th:text="#{catalog.salad}">Salads</label>
+                </div>
+            </div>
+        </div>
+        <button class="ui button" th:text="#{catalog.view}">Anzeigen</button>
+    </form>
+
+    <br/>
+
+    <table class="center aligned ui celled table">
+        <thead>
+        <th colspan="4">
+            <div th:if="${current.equals('all')}">
+                <h2 th:text="#{catalog.all}">Alles</h2>
+            </div>
+            <div th:if="${current.equals('ingredients')}">
+                <h2 th:text="#{catalog.ingredient}">Zutaten</h2>
+            </div>
+            <div th:if="${current.equals('drinks')}">
+                <h2 th:text="#{catalog.drink}">Getränke</h2>
+            </div>
+            <div th:if="${current.equals('salads')}">
+                <h2 th:text="#{catalog.salad}">Salate</h2>
+            </div>
+        </th>
+        <tr>
+            <th th:text="#{catalog.category}">Kategorie</th>
+            <th th:text="#{catalog.name}">Produktname</th>
+            <th th:text="#{catalog.price}">Preis pro Stück</th>
+            <th th:text="#{catalog.option}">Optionen</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${!ingredients.isEmpty()}" th:each="ingredient:${ingredients}">
+            <td th:text="#{catalog.ingredient}">Zutat</td>
+            <td th:text="${ingredient.name}">007</td>
+            <td th:text="${ingredient.price.number} + ' €'">NyanCat</td>
+            <td>
+                <div class="ui two column grid center aligned">
+                    <div class="column">
+                        <form th:action="@{/catalog/edit}" method="post">
+                            <input type="hidden" th:name="productId" th:value="${ingredient.id}">
+                            <input type="hidden" th:name="name" th:value="${ingredient.name}">
+                            <input type="hidden" th:name="price" th:value="${ingredient.price.number}">
+                            <button class="ui button" th:text="#{catalog.edit}">Bearbeiten</button>
+                        </form>
+                    </div>
+                    <div class="column">
+                        <form th:action="@{/catalog/delete}" method="post">
+                            <input type="hidden" th:name="productId" th:value="${ingredient.id}">
+                            <button class="negative ui button" th:text="#{catalog.delete}">Löschen</button>
+                        </form>
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+        <tr th:if="${!drinks.isEmpty()}" th:each="drink:${drinks}">
+            <td th:text="#{catalog.drink}">Getränk</td>
+            <td th:text="${drink.name}">007</td>
+            <td th:text="${drink.price.number} + ' €'">NyanCat</td>
+            <td>
+                <div class="ui two column grid center aligned">
+                    <div class="column">
+                        <form th:action="@{/catalog/edit}" method="post">
+                            <input type="hidden" th:name="productId" th:value="${drink.id}">
+                            <input type="hidden" th:name="name" th:value="${drink.name}">
+                            <input type="hidden" th:name="price" th:value="${drink.price.number}">
+                            <button class="ui button" th:text="#{catalog.edit}">Bearbeiten</button>
+                        </form>
+                    </div>
+                    <div class="column">
+                        <form th:action="@{/catalog/delete}" method="post">
+                            <input type="hidden" th:name="productId" th:value="${drink.id}">
+                            <button class="red ui button" th:text="#{catalog.delete}">Löschen</button>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr th:each="salad:${salads}">
+            <td th:text="#{catalog.salad}">Salat</td>
+            <td th:text="${salad.name}">007</td>
+            <td th:text="${salad.price.number} + ' €'">NyanCat</td>
+            <td>
+                <div class="ui two column grid center aligned">
+                    <div class="column">
+                        <form th:action="@{/catalog/edit}" method="post">
+                            <input type="hidden" th:name="productId" th:value="${salad.id}">
+                            <input type="hidden" th:name="name" th:value="${salad.name}">
+                            <input type="hidden" th:name="price" th:value="${salad.price.number}">
+                            <button class="ui button" th:text="#{catalog.edit}">Bearbeiten</button>
+                        </form>
+                    </div>
+                    <div class="column">
+                        <form th:action="@{/catalog/delete}" method="post">
+                            <input type="hidden" th:name="productId" th:value="${salad.id}">
+                            <button class="red ui button" th:text="#{catalog.delete}">Löschen</button>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

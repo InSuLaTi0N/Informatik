@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{employee.title}">Mitarbeiter</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{employee.title}">Mitarbeiter</h1>
+        </div>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui two column stackable center aligned page grid">
+        <div class="two column wide ui vertical menu">
+            <h2 class="ui header">
+                <img class="ui image" th:src="@{/resources/img/employee.png}"><br/>
+                <div class="content">
+                    <a class="positive ui button" th:href="@{/employeeAdd}" th:text="#{employee.new}">
+                        Mitarbeiter registrieren
+                    </a>
+                </div>
+            </h2>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <table class="center aligned ui celled table">
+        <thead>
+        <th colspan="8">
+            <h2 th:text="#{employee.title}">Mitarbeiter</h2>
+        </th>
+        <tr>
+            <th th:text="#{employee.firstName}">Vorname</th>
+            <th th:text="#{employee.lastName}">Nachname</th>
+            <th th:text="#{employee.address}">Adresse</th>
+            <th th:text="#{employee.salary}">Gehalt</th>
+            <th th:text="#{employee.role}">Rolle</th>
+            <th th:text="#{employee.weeklyHours}">Wochenstunden</th>
+            <th th:text="#{catalog.option}">Optionen</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each=" employee : ${employeeList}">
+            <td th:text="${employee.userAccount.firstname}">NyanCat</td>
+            <td th:text="${employee.userAccount.lastname}">NyanCat</td>
+            <td th:text="${employee.street + ' ' + employee.houseNumber + ', ' + employee.plz + ' ' + employee.city}">
+                Time Square 1
+            </td>
+            <td th:text="${employee.salary.number} + ' €'">Time Square 1</td>
+            <td th:text="${employee.role}">Time Square 1</td>
+            <td th:text="${employee.weeklyHours}">Time Square 1</td>
+            <td>
+                <div th:if="${employee.getRole().equals('BOSS')}">
+                    <div class="ui one column grid center aligned" sec:authorize="hasAnyRole('BOSS')">
+                        <div class="column">
+                            <form th:action="@{/employeeManagerUpdateEmployee/{employee}(employee=${employee.getId()})}"
+                                  th:value="${employee}" method="post">
+                                <button class="ui button" th:text="#{employee.edit}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${employee.getRole().equals('ADMIN')}">
+                    <div class="column">
+                        <form th:action="@{/employeeManagerUpdateEmployee/{employee}(employee=${employee.getId()})}"
+                              th:value="${employee}" method="post">
+                            <button class="ui button" th:text="#{employee.edit}"/>
+                        </form>
+                        <div sec:authorize="hasAnyRole('BOSS')">
+                            <br/>
+                            <form th:action="@{/employeeManagerDeleteEmployee/{employee}(employee=${employee.getId()})}"
+                                  th:value="${employee}" method="post">
+                                <button class="negative ui button" th:text="#{employee.delete}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${!employee.getRole().equals('ADMIN') && !employee.getRole().equals('BOSS')}">
+                    <div class="column">
+                        <form th:action="@{/employeeManagerUpdateEmployee/{employee}(employee=${employee.getId()})}"
+                              th:value="${employee}" method="post">
+                            <button class="ui button" th:text="#{employee.edit}"/>
+                        </form>
+                        <br/>
+                        <form th:action="@{/employeeManagerDeleteEmployee/{employee}(employee=${employee.getId()})}"
+                              th:value="${employee}" method="post">
+                            <button class="negative ui button" th:text="#{employee.delete}"/>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+= Protokoll Gruppe 36
+
+Treffen am 25.11.2020
+
+Ort:      APB +
+Beginn:   16:45 Uhr +
+Ende:     17:40 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+02.12.2020, 16:40 Uhr, APB
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+. Prototyp:
+.. Andrej (Statemanagement + OrderLines): Backend + Frontend relativ fertig
+.. Ludwig (Employee + Customer): Backend fertig, Frontend fehlt
+.. Friedemann (Accountancy): arbeitet sich noch ein
+.. Dmytro (Catalog): Diagramme + Tests gemacht, Backend + Frontend noch nicht
+.. Serafina (Order): Backend + Frontend steht
+
+. Customer-Login diskutiert
+. Zwischenpräsentation nächste Woche
+. Anwendungsprototyp, Entwicklerdokumentation, Testplan bis Sonntag

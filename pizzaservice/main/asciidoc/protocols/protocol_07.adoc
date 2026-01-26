@@ -1,0 +1,35 @@
+= Protokoll Gruppe 36
+
+Treffen am 09.12.2020
+
+Ort:      Jitsi  +
+Beginn:   16:50 Uhr +
+Ende:     17:05 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+16.12.2020, 16:40 Uhr, Jitsi
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+. Vorführung des aktuellen Stands der Anwendung:
+.. Merge der Anwendungsprototypen verlief ohne große Probleme
+.. Zusammenstellung einer Pizza aus Zutaten bei Bestellung ist nun möglich
+.. "Lieferzeitraum anzeigen":
+... Zubereitungszeit approximieren
+... restliche Zeit bis die Bestellung ausfahrbereit ist, soll für Bestellung konkret berechnet werden
+... Lieferzeitraum (Uhrzeit) soll dann zur nächsten Viertelstunde aufgerundet werden (XX:00 Uhr, XX:15 Uhr, XX:30 Uhr, XX:45 Uhr)

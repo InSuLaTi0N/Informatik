@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{customer.update.title}">Kundendaten aktualisieren</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{customer.update.title}">Kundendaten aktualisieren</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/customer}" th:text="#{customer.cancel}">Abbrechen</a>
+        </div>
+    </nav>
+
+    <br/>
+
+    <form class="ui form" th:action="@{/customer/updateCustomer/{customerId}(customerId=${customer.getId()})}"
+          th:object="${customerRegistrationForm}" method="post">
+        <h3 class="ui dividing header" th:text="#{customer.userdata}">Kundendaten</h3>
+        <input type="hidden" name="customerId" th:value="${customer.id}"/>
+        <div class="field">
+            <label th:text="#{customer.firstName}">Vorname</label>
+            <input type="text" th:field="*{firstName}" th:errorclass="fieldError"
+                   required="required" maxlength="50"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                <p>Der Vorname darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{customer.lastName}">Nachname</label>
+            <input type="text" th:field="*{lastName}" th:errorclass="fieldError"
+                   required="required" maxlength="50"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                <p>Der Nachname darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{customer.street}">Adresse</label>
+            <input type="text" th:field="*{street}" th:errorclass="fieldError"
+                   required="required" maxlength="40"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
+                <p>Die Straße darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{customer.houseNumber}">Adresse</label>
+            <input type="number" th:field="*{houseNumber}" th:errorclass="fieldError" min="1" max="1000" step="1"
+                   required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">
+                <p>Die Hausnummer darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{customer.plz}">Adresse</label>
+            <input type="text" th:field="*{plz}" th:errorclass="fieldError"
+                   required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">
+                <p>Die Postleitzahl darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{customer.city}">Adresse</label>
+            <input type="text" th:field="*{city}" th:errorclass="fieldError"
+                   required="required" maxlength="30"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                <p>Die Stadt darf nicht leer sein!</p>
+            </div>
+        </div>
+        <div class="field">
+            <label th:text="#{customer.telephoneNumber}">Tel.:</label>
+            <input type="text" th:field="*{telephoneNumber}" th:errorclass="fieldError"
+                   required="required" maxlength="30"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('telephoneNumber')}" th:errors="*{telephoneNumber}">
+                <p>Die Telefonnummer darf nicht leer sein!</p>
+            </div>
+        </div>
+        <button class="ui button" th:text="#{customer.update}">Aktualisieren</button>
+    </form>
+</div>
+</body>
+</html>

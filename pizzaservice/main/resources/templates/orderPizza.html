@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{order.preparation}">Zubereitungsbereich</title>
+</head>
+<body>
+<div class="center aligned ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{order.preparation}">Zubereitungsbereich</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/order}" th:text="#{order.back}">Zurück</a>
+        </div>
+    </nav>
+
+    <br/>
+
+    <h4 th:if="${unpreparedPizzas.isEmpty()}" th:text="#{order.nothingToPrepare}">
+        Es sind keine Pizzas zum Zubereiten im System vorhanden.
+    </h4>
+
+    <table class="center aligned ui celled table" th:if="${!unpreparedPizzas.isEmpty()}">
+        <thead>
+        <tr>
+            <th th:text="#{order.pizza}">Pizza</th>
+            <th th:text="#{order.preparedQ}">Zubereitet?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="entry : ${unpreparedPizzas}">
+            <tr>
+                <td colspan="3">
+                    <h3 th:text="${entry.key.dateCreated.format(timeFormatter)}">Erstellungsdatum</h3>
+                </td>
+            </tr>
+            <tr th:each="orderLineEntry : ${entry.value}">
+                <td th:text="${'Zutaten: ' + orderLineEntry.productName.split('Status: ')[0].split('Zutaten: ')[1]}"
+                    style="white-space:pre-wrap; word-wrap:break-word"></td>
+                <td>
+                    <form th:action="@{/order/view/inPreparation/submit}" method="post">
+                        <input type="hidden" id="orderId" th:name="orderId" th:value="${entry.key.id}">
+                        <input type="hidden" id="orderLineInt" th:name="orderLineInt"
+                               th:value="${entry.key.getOrderLineInt(orderLineEntry)}">
+                        <button class="ui button" th:text="#{order.prepared}">Zubereitet</button>
+                    </form>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

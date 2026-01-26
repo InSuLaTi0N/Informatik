@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{order.delivery}">Bestellungen ausliefern</title>
+</head>
+<body>
+<div class="center aligned ui container">
+    <header>
+        <div class="outline">
+            <h1 th:text="#{order.delivery}">Bestellungen ausliefern</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="ui secondary pointing menu">
+            <a class="item" th:href="@{/order}" th:text="#{order.back}">Zurück</a>
+        </div>
+    </nav>
+
+    <br/>
+
+    <h4 th:if="${orders.isEmpty()}" th:text="#{order.nothingToDeliver}">
+        Es sind keine ausfahrbereiten Bestellungen im System vorhanden.
+    </h4>
+
+    <table class="center aligned ui celled table" th:if="${!orders.isEmpty()}">
+        <thead>
+        <tr>
+            <th th:text="#{order.customer}">Kunde</th>
+            <th th:text="#{order.deliveryAddress}">Lieferadresse</th>
+            <th th:text="#{order.date}">Datum</th>
+            <th th:text="#{order.product}">Produkte</th>
+            <th th:text="#{order.totalPrice}">Gesamtpreis</th>
+            <th th:text="#{order.deliverQ}">Ausliefern?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders} ">
+            <td th:text="${order.getCustomerName()}"></td>
+            <td th:text="${order.address}"></td>
+            <td th:text="${order.dateCreated.format(timeFormatter)}"></td>
+            <td th:text="${order.orderString}" style="white-space:pre-wrap; word-wrap:break-word"></td>
+            <td th:text="${order.total.number} + ' €'"></td>
+            <td>
+                <form th:action="@{/order/view/done/submit}" method="post">
+                    <input type="hidden" id="orderId" th:name="orderId" th:value="${order.id}">
+                    <button class="ui button" th:text="#{order.deliver}">Ausliefern</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

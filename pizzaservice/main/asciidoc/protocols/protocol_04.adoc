@@ -1,0 +1,32 @@
+= Protokoll Gruppe 36
+
+Treffen am 19.11.2020
+
+Ort:      APB +
+Beginn:   17:05 Uhr +
+Ende:     18:10 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+25.11.2020, 16:40 Uhr, APB
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+- ER-Modell kurz diskutiert
+- Datenbank zu Usern diskutiert -> bei Videoshop nicht persistent
+- Videoshop-Erweiterung: Vorstellung von jedem
+- Aufteilung der Komponenten diskutiert -> Lösung wird in Slack gepostet

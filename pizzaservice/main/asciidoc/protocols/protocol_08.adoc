@@ -1,0 +1,33 @@
+= Protokoll Gruppe 36
+
+Treffen am 16.12.2020
+
+Ort:      Jitsi  +
+Beginn:   17:00 Uhr +
+Ende:     17:20 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+06.01.2021, 17:00 Uhr, Jitsi
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+. Backend quasi fertig, Frontend noch relativ am Anfang
+. Tests sind auch noch in Arbeit
+. "Coverage" orientiert sich an Sonarqube
+. Entwicklerdokumentation bis zum Cross-Testing aktualisieren
+. zwischendurch fertige Version am besten vor Sonntag noch an Tutor senden

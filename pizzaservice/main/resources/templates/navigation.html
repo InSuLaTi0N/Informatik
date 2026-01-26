@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+</head>
+<body>
+<nav th:fragment="navigation">
+    <div class="ui secondary pointing menu">
+        <!-- Home -->
+        <a class="item" th:href="@{/}" th:text="#{nav.home}">Home</a>
+        <!-- Employee Menus -->
+        <a class="item" th:href="@{/order}" sec:authorize="isAuthenticated()" th:text="#{nav.order}">Bestellungen</a>
+        <a class="item" th:href="@{/customer}" sec:authorize="isAuthenticated()" th:text="#{nav.customer}">Kunden</a>
+        <!-- Admin Menus -->
+        <a class="item" th:href="@{/employee}" sec:authorize="hasAnyRole('BOSS','ADMIN')" th:text="#{nav.employee}">Mitarbeiter</a>
+        <a class="item" th:href="@{/catalog}" sec:authorize="hasAnyRole('BOSS','ADMIN')" th:text="#{nav.catalog}">Sortiment</a>
+        <a class="item" th:href="@{/branch}" sec:authorize="hasAnyRole('BOSS','ADMIN')" th:text="#{nav.branch}">Filiale</a>
+        <!-- Login -->
+        <div class="right menu">
+            <a class="ui item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{nav.login}">Log In</a>
+            <a class="ui item" th:href="@{/logout}" sec:authorize="isAuthenticated()" th:text="#{nav.logout}">Log Out</a>
+        </div>
+    </div>
+    </br>
+</nav>
+</body>
+</html>

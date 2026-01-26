@@ -1,0 +1,48 @@
+= Protokoll Gruppe 36
+
+Treffen am 02.12.2020
+
+Ort:      APB +
+Beginn:   16:40 Uhr +
+Ende:     18:50 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+09.12.2020, 16:40 Uhr, online
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+. Zwischenpräsentation
+. Diskussion der Anwendungsprototypen
+.. UserManagement:
+... keine branchId, da die Anwendung nur lokal in jeder Filiale laufen soll
+... Zusammenfassung von Register- und Management-Ansichten in jeweils einen Managementbereich für Customer/Employee
+... Employee sollte Stundenzahl und Gehalt pro Stunde als Attribut haben
+.. Order:
+... bei Bestellerstellung: Anzeige für was man bereits angeklickt hat sollte rein
+... Ansicht für abgeschlossene Bestellungen rausschmeißen, da bereits in Accountancy enthalten
+... Alle Mitarbeiter sollen alle aktiven Bestellungen sehen können
+... bei Zubereitungsbereich: neben jede Pizza sollte die OrderId
+... Selbstabholung als extra Ansicht im Frontend implementieren
+.. Catalog:
+... Produkt löschen-Button grün->rot, Produkt bearbeiten-Button grün->blau
+... mehr Platz zwischen Zeilen in der Tabelle beim Sortiment
+... Filtern nach Kategorie soll möglich sein
+.. Accountancy:
+... Abrechnung für selbstgewählten Zeitraum sollte auch möglich sein
+... Abrechnung sollte Ausgaben für die Gehälter der Mitarbeiter beinhalten
+. Entwicklerdokumentation sollte spätestens vor Weihnachtsferien aktualisiert werden

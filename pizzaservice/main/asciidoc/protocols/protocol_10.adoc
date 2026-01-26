@@ -1,0 +1,30 @@
+= Protokoll Gruppe 36
+
+Treffen am 13.01.2021
+
+Ort:      Jitsi  +
+Beginn:   17:00 Uhr +
+Ende:     17:10 Uhr
+
+__Schriftführer: Andrej Bereza__
+
+*Nächstes Treffen:* +
+20.01.2021, 17:00 Uhr, Jitsi
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Antonia Holsten (Tutor/Kunde)
+- Friedemann Weickert (Scrum Master)
+- Dmytro Tyschenko
+- Ludwig Pauly
+- Serafina Loeffelholz
+- Andrej Bereza
+
+== Bemerkungen
+
+== Aktueller Stand
+Besprochene Aspekte:
+
+. keine Probleme beim Cross-Testing
+. Kundenwunsch: Boss-Rolle -> Löschen von Admins

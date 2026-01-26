@@ -1,0 +1,107 @@
+= Cross-Testing Feedback
+
+__Durchführende Gruppe: 36__
+
+__Anwendung von Gruppe: 30__
+
+== Getestetes System
+Es wurde eine Verwaltungssoftware für den Campingplatz Below-The-Sun getestet. Die getestete Software soll die zeitintensive Papierbuchhaltung ablösen.
+
+== Fehler-Report
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+|===
+|Pfad |Parameter |Beschreibung |Rückgabe
+|Reservierungen -> Buchungen
+a|
+* Vorher: Reservierungen mit Namen "A B", "B C" und "Y Z" anlegen
+* Sortieren nach: Alphabetisch Z..A
+|
+Die umgekehrte alphabetische Sortierung von Buchungen liefert nicht die erwartete Rückgabe.
+|
+"A B", "Y Z", "B C", "Neil Armstrong", "Gustav Müller"
+
+Erwartete Rückgabe:
+"Y Z", "Neil Armstrong", "Gustav Müller", "B C", "A B"
+
+
+|Reservierungen -> Auschecken -> "Neil Armstrong" auschecken -> Federballset als "Defekt" setzen und zurückgeben -> Reservierungen -> Auschecken -> "Neil Armstrong" auschecken
+a|
+* Reparaturkosten: 10
+* "hinzufügen"
+|
+Die hinzugefügten Reparaturkosten in Höhe von 10 € werden nicht richtig zu den Gesamtkosten hinzuaddiert.
+|
+Gesamtkosten: EUR 629.99
+
+Erwartete Rückgabe:
+Gesamtkosten: EUR 594.99
+
+|Reservierungen -> Lageplan
+a|
+* Vorher: "Gustav Muster" einchecken und auschecken
+* "Stilles Örtchen" -> "Löschen"
+|
+Ein Lagerplatz, der in einer Reservierung verwendet wurde, konnte nicht gelöscht werden.
+|
+Exception
+
+Erwartete Rückgabe:
+erfolgreiches Löschen
+
+|Reservierungen -> Lageplan -> Hinzufügen
+a|
+* Platz ID = Test
+* Parkplatz = None
+* Size = -1
+* Price = -1
+|
+Es können Lagerplätze mit negativer Größer und/oder negativem Preis hinzugefügt werden.
+|
+erfolgreiches Hinzufügen
+
+Erwartete Rückgabe:
+Fehlermeldung durch Validierung
+
+|Verwaltung
+a|
+* Name = 0
+* Passwort = 0
+* Logout
+* Login mit obigen Daten
+|
+Ein neu angelegter Mitarbeiter kann nichts auf der Website tun.
+|
+Navigationsleiste besteht nur aus "Home" und "Logout"
+
+Erwartete Rückgabe:
+Navigationsleiste besteht aus "Home", "Reservierungen", "Geräte"
+
+|Geräte -> Geräte
+a|Login mit
+
+* Name = 1
+* Passwort = 1
+|Mitarbeiter ist eingeloggt und versucht Geräteliste einzusehen
+|Mitarbeiter hat keinen Menüpunkt "Geräte" (AT0110)
+|===
+
+== Sonstiges
+* Optik der Anwendung:
+** Generell gut
+** Bilder für z.B. den Header würden das Ganze aufwerten
+** Buttons gleichmäßig gestalten (Lageplanfilter benutzt andere Buttons als Hinzufügen/Löschen)
+* Fehlende Features:
+** alle Kann-Kriterien bis auf die Registrierung
+** Möglichkeit Campingplätze zu bearbeiten (müssen momentan gelöscht und neu angelegt werden)
+* Interaktion mit der Anwendung (Usability):
+** Menüpunkt "Reservierungen" enthält viele Unterpunkte die unübersichtlich sind (evtl. Lageplan ausgliedern)
+** klare Verwendung von "Reservierung" und Buchung (nach "Reservierung anlegen" taucht diese unter "Buchungen" auf)
+
+== Verbesserungsvorschläge
+* Behebung von Rechtschreibfehlern wie z.B. "Addresse"
+* Behebung von "falschen" Texten wie z.B. "Nutzerdaten" beim Anlegen von einem Gerät
+* Entfernen von englischen Begriffen in der deutschen Version der Seite wie z.B. "Size"/"Price" beim Anlegen eines neuen Platzes (Verwendung von 2 .properties-Dateien für DE/EN)
+* Aktuelle Filterauswahl nach Klick auf "Filtern"/"Anzeigen" beibehalten
+* Fehlernachricht bei Login mit falschen Daten
+* Anwendung soll kein JavaScript enthalten (ist zum Teil noch im <head>)
